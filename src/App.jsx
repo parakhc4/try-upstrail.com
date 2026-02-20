@@ -224,7 +224,7 @@ export default function App() {
                         <td className="px-6 py-4 text-center">
                           <span className="px-2 py-1 rounded text-[10px] font-bold uppercase border bg-amber-50 text-amber-600 border-amber-100">Partial</span>
                         </td>
-                        <td className="px-6 py-4 text-slate-500 text-[10px]">Insufficient Material Capacity</td>
+                        <td className="px-6 py-4 text-slate-500 text-[10px]">Insufficient Material</td>
                       </tr>
 
                       <tr className="hover:bg-slate-50/50 transition-colors">
@@ -257,7 +257,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 md:text-center">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Core Capabilities</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Built on a highly configurable Python solver engine and a performant React frontend, designed for complex manufacturing realities.</p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">An enterprise-grade planning platform designed for complex manufacturing, combining out-of-the-box reliability with a 20% custom-tailored engine for your unique operational constraints.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -265,9 +265,9 @@ export default function App() {
               <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-6">
                 <Layers size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Custom-like APS Solvers</h3>
+              <h3 className="text-xl font-bold mb-3">Ready-to-Deploy APS</h3>
               <p className="text-slate-600 leading-relaxed">
-                Advanced Planning and Scheduling constraint logic built from the ground up to handle multi-echelon inventory and production capacities.
+                Production-ready APS engine designed to handle multi-echelon inventory and production capacities out-of-the-box, ensuring rapid deployment with minimal configuration.
               </p>
             </div>
             
@@ -300,7 +300,7 @@ export default function App() {
           <div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Proven in the Automotive Sector.</h2>
             <p className="text-slate-300 text-lg mb-8 leading-relaxed">
-              We partnered with a Tier-1 automotive supplier to build a custom proof-of-concept that evolved into a full-scale deployment. By bridging our deep supply chain consulting experience with modern tech stacks, we delivered a tailored planning system that off-the-shelf software couldn't match.
+              We partnered with a Tier-1 automotive supplier to build a proof-of-concept that evolved into a full-scale deployment. By bridging our deep supply chain consulting experience with modern tech stacks, we delivered a planning system that off-the-shelf software couldn't match.
             </p>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/> Parameterized demand forecasting</li>
@@ -352,7 +352,7 @@ export default function App() {
   <div className="relative z-10 max-w-4xl mx-auto">
     <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Ready to optimize your supply chain?</h2>
     <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-      Stop relying on generic ERP modules and manual spreadsheets. Let's build an intelligent planning engine tailored exactly to your manufacturing realities.
+      Stop relying on generic ERP modules and manual spreadsheets. Let's deploy an intelligent custom-like planning engine, tailored to fit your manufacturing realities.
     </p>
       <button 
         onClick={() => setIsModalOpen(true)}
@@ -394,7 +394,7 @@ export default function App() {
 
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Let's optimize your operations.</h3>
-                <p className="text-slate-600 mb-6 text-sm">Fill out the form below and our supply chain engineering team will reach out within 24 hours.</p>
+                <p className="text-slate-600 mb-6 text-sm">Fill out the form below and our engineering team will reach out.</p>
 
                 {formStatus === 'success' ? (
                   <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-lg flex items-center gap-3">
@@ -413,7 +413,7 @@ export default function App() {
                         name="name"
                         required
                         className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
-                        placeholder="John Doe @ Deno Pvt Ltd"
+                        placeholder="Rohit Garg @ Manufacturing Pvt Ltd"
                       />
                     </div>
                     
@@ -424,7 +424,7 @@ export default function App() {
                         name="email"
                         required
                         className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
-                        placeholder="john@company.com"
+                        placeholder="rohit@company.com"
                       />
                     </div>
                     
@@ -435,7 +435,7 @@ export default function App() {
                         required
                         rows="3"
                         className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors resize-none"
-                        placeholder="We are struggling with multi-echelon inventory routing..."
+                        placeholder="We are struggling with managing inventory.."
                       ></textarea>
                     </div>
 
