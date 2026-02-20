@@ -11,21 +11,27 @@ export default function App() {
   const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success, error
 
   // The function that handles sending the email
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('submitting');
     
     const formData = new FormData(e.target);
-    // Replace YOUR_ACCESS_KEY with a free key from web3forms.com
-    formData.append("access_key", "YOUR_ACCESS_KEY"); 
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRiafpYdJ2bqziphk2UMJ5VU4GH56I6GrLtvnBz_w2Jr_gUDVPZHN1XmQ44gLUIBFtyQ/exec";
+
+    // 1. Prepare data for Google Sheets (as URL parameters)
+    const scriptURL = `${GOOGLE_SHEET_URL}?name=${encodeURIComponent(formData.get('name'))}&email=${encodeURIComponent(formData.get('email'))}&message=${encodeURIComponent(formData.get('message'))}`;
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
+      // Execute both: Email via Web3Forms and Data via Google Sheets
+      const [emailResponse, sheetResponse] = await Promise.all([
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        }),
+        fetch(scriptURL, { method: "POST" })
+      ]);
       
-      if (response.ok) {
+      if (emailResponse.ok && sheetResponse.ok) {
         setFormStatus('success');
         setTimeout(() => {
           setIsModalOpen(false);
@@ -35,6 +41,7 @@ export default function App() {
         setFormStatus('error');
       }
     } catch (err) {
+      console.error("Submission error:", err);
       setFormStatus('error');
     }
   };
