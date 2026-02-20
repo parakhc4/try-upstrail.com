@@ -98,8 +98,8 @@ const handleSubmit = async (e) => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
           >
-            Intelligent Supply Chain <br className="hidden md:block" />
-            <span className="text-blue-600">Decision Making.</span>
+            The Backbone of <br className="hidden md:block" />
+            <span className="text-blue-600">your Bottomline.</span>
           </motion.h1>
 
           <motion.p 
@@ -108,7 +108,7 @@ const handleSubmit = async (e) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10"
           >
-            Upstrail bridges deep supply chain consulting with cutting-edge software engineering. We build custom optimization engines and fulfillment dashboards tailored to the automotive and manufacturing sectors.
+            Upstrail bridges deep supply chain expertise with cutting-edge software engineering. We deliver out-of-the-box optimization engines and fulfillment dashboards designed for rapid deployment, giving you intelligent decision-making capabilities with minimal implementation effort.
           </motion.p>
         </div>
       </section>
@@ -282,7 +282,7 @@ const handleSubmit = async (e) => {
               </div>
               <h3 className="text-xl font-bold mb-3">Ready-to-Deploy APS</h3>
               <p className="text-slate-600 leading-relaxed">
-                Production-ready APS engine designed to handle multi-echelon inventory and production capacities out-of-the-box, ensuring rapid deployment with minimal configuration.
+                Intelligent engine that manages your complete supply planning process from start to finish. Requires minimal configuration while taking 80% of typical supply chain problems off your plate.
               </p>
             </div>
             
@@ -315,12 +315,12 @@ const handleSubmit = async (e) => {
           <div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Proven in the Automotive Sector.</h2>
             <p className="text-slate-300 text-lg mb-8 leading-relaxed">
-              We partnered with a Tier-1 automotive supplier to build a proof-of-concept that evolved into a full-scale deployment. By bridging our deep supply chain consulting experience with modern tech stacks, we delivered a planning system that off-the-shelf software couldn't match.
+              We partnered with a Tier-1 manufacturing enterprise to deliver a full scale, intelligent planning solution. By bridging our deep supply chain consulting experience with a modern tech stack, we deployed a system that was 70% out-of-the-box and required only 30% customization, delivering a perfect fit that off the shelf software couldn't match
             </p>
             <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/> Parameterized demand forecasting</li>
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/> Real-time constraint checking</li>
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/> React-based planner dashboards</li>
+              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Resolves capacity bottlenecks with automated rollbacks.</li>
+              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Dynamically scales orders based on component availability.</li>
+              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Splits purchase orders across suppliers while enforcing capacity limits.</li>
             </ul>
           </div>
 <div className="relative h-[450px] bg-[#0d1117] rounded-xl border border-slate-700 p-6 font-mono text-sm overflow-hidden flex flex-col shadow-2xl">
