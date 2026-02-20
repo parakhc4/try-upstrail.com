@@ -12,39 +12,47 @@ export default function App() {
 
   // The function that handles sending the email
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus('submitting');
-    
-    const formData = new FormData(e.target);
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRiafpYdJ2bqziphk2UMJ5VU4GH56I6GrLtvnBz_w2Jr_gUDVPZHN1XmQ44gLUIBFtyQ/exec";
+  e.preventDefault();
+  setFormStatus('submitting');
+  
+  const formData = new FormData(e.target);
+  
+  // 1. Fill in your Web3Forms Access Key here
+  formData.append("access_key", "4c57de63-6faa-4aac-b552-41ae5259a976"); 
 
-    // 1. Prepare data for Google Sheets (as URL parameters)
-    const scriptURL = `${GOOGLE_SHEET_URL}?name=${encodeURIComponent(formData.get('name'))}&email=${encodeURIComponent(formData.get('email'))}&message=${encodeURIComponent(formData.get('message'))}`;
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRiafpYdJ2bqziphk2UMJ5VU4GH56I6GrLtvnBz_w2Jr_gUDVPZHN1XmQ44gLUIBFtyQ/exec"; 
+  const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
-    try {
-      // Execute both: Email via Web3Forms and Data via Google Sheets
-      const [emailResponse, sheetResponse] = await Promise.all([
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        }),
-        fetch(scriptURL, { method: "POST" })
-      ]);
-      
-      if (emailResponse.ok && sheetResponse.ok) {
-        setFormStatus('success');
-        setTimeout(() => {
-          setIsModalOpen(false);
-          setFormStatus('idle');
-        }, 3000);
-      } else {
-        setFormStatus('error');
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
+  try {
+    // Fire off the Google Sheet request silently (don't wait for it to finish)
+    fetch(GOOGLE_SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    }).catch(err => console.error("Sheet log failed:", err));
+
+    // 2. Submit to Web3Forms and wait for the result to update UI
+    const response = await fetch(WEB3FORMS_URL, {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      setFormStatus('success');
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setFormStatus('idle');
+      }, 3000);
+    } else {
+      const errorData = await response.json();
+      console.error("Web3Forms Error:", errorData);
       setFormStatus('error');
     }
-  };
+  } catch (err) {
+    console.error("Submission error:", err);
+    setFormStatus('error');
+  }
+};
 
   // ... rest of your existing App code
   return (
