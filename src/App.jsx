@@ -1,469 +1,519 @@
 import React, { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  BarChart3, Database, Layers, ArrowRight, Activity, CheckCircle2, 
-  Target, IndianRupee, CheckSquare, AlertTriangle, X 
-} from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, AlertTriangle, CheckSquare, IndianRupee, Target } from 'lucide-react';
+
+const UpstrailMark = () => (
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="30" height="30" fill="#0F0F0F"/>
+    <path d="M8 8v10a7 7 0 0014 0V8" stroke="#F7F4EF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success, error
+  const [formStatus, setFormStatus] = useState('idle');
 
-  // The function that handles sending the email
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setFormStatus('submitting');
-  
-  const formData = new FormData(e.target);
-  
-  // 1. Fill in your Web3Forms Access Key here
-  formData.append("access_key", "4c57de63-6faa-4aac-b552-41ae5259a976"); 
-
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRiafpYdJ2bqziphk2UMJ5VU4GH56I6GrLtvnBz_w2Jr_gUDVPZHN1XmQ44gLUIBFtyQ/exec"; 
-  const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-
-  try {
-    // Fire off the Google Sheet request silently (don't wait for it to finish)
-    fetch(GOOGLE_SHEET_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    }).catch(err => console.error("Sheet log failed:", err));
-
-    // 2. Submit to Web3Forms and wait for the result to update UI
-    const response = await fetch(WEB3FORMS_URL, {
-      method: "POST",
-      body: formData
-    });
-
-    if (response.ok) {
-      setFormStatus('success');
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setFormStatus('idle');
-      }, 3000);
-    } else {
-      const errorData = await response.json();
-      console.error("Web3Forms Error:", errorData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    const formData = new FormData(e.target);
+    formData.append("access_key", "4c57de63-6faa-4aac-b552-41ae5259a976");
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRiafpYdJ2bqziphk2UMJ5VU4GH56I6GrLtvnBz_w2Jr_gUDVPZHN1XmQ44gLUIBFtyQ/exec";
+    const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+    try {
+      fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: formData })
+        .catch(err => console.error("Sheet log failed:", err));
+      const response = await fetch(WEB3FORMS_URL, { method: "POST", body: formData });
+      if (response.ok) {
+        setFormStatus('success');
+        setTimeout(() => { setIsModalOpen(false); setFormStatus('idle'); }, 3000);
+      } else {
+        setFormStatus('error');
+      }
+    } catch {
       setFormStatus('error');
     }
-  } catch (err) {
-    console.error("Submission error:", err);
-    setFormStatus('error');
-  }
-};
+  };
 
-  // ... rest of your existing App code
   return (
-    <div className="min-h-screen font-sans bg-slate-50 selection:bg-blue-600 selection:text-white text-slate-900">
-      
-      {/* --- NAVBAR --- */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 px-6 md:px-12 flex justify-between items-center">
-      <div className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-        <img src={reactLogo} alt="Upstrail Logo" className="w-8 h-8" />
-        Upstrail
-      </div>
-        <div className="hidden md:flex gap-8 text-sm font-semibold text-slate-600">
-          <a href="#platform" className="hover:text-blue-600 transition-colors">Platform</a>
-          <a href="#capabilities" className="hover:text-blue-600 transition-colors">Capabilities</a>
-          <a href="#solutions" className="hover:text-blue-600 transition-colors">Solutions</a>
+    <div className="min-h-screen font-sans" style={{ backgroundColor: '#F7F4EF', color: '#0F0F0F' }}>
+
+      {/* ── NAV ─────────────────────────────────────────────────── */}
+      <nav style={{ backgroundColor: 'rgba(247,244,239,0.92)', borderBottom: '1px solid #D8D3CB' }}
+        className="fixed top-0 w-full z-50 backdrop-blur-sm py-4 px-8 md:px-14 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <UpstrailMark />
+          <span className="text-xs font-black tracking-[0.2em] uppercase" style={{ color: '#0F0F0F' }}>Upstrail</span>
         </div>
-<button 
-  onClick={() => setIsModalOpen(true)} 
-  className="px-6 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-full hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-slate-200 flex items-center gap-2"
->
-  Request Demo <ArrowRight size={16} />
-</button>
+        <div className="hidden md:flex gap-10">
+          <a href="#platform" className="text-xs font-bold tracking-widest uppercase transition-colors"
+            style={{ color: '#8A8478' }}
+            onMouseEnter={e => e.target.style.color='#0F0F0F'}
+            onMouseLeave={e => e.target.style.color='#8A8478'}>Platform</a>
+          <a href="#proof" className="text-xs font-bold tracking-widest uppercase transition-colors"
+            style={{ color: '#8A8478' }}
+            onMouseEnter={e => e.target.style.color='#0F0F0F'}
+            onMouseLeave={e => e.target.style.color='#8A8478'}>Case Study</a>
+        </div>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="text-xs font-black tracking-widest uppercase px-5 py-2.5 transition-all duration-200"
+          style={{ border: '1px solid #0F0F0F', color: '#0F0F0F', backgroundColor: 'transparent' }}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor='#0F0F0F'; e.currentTarget.style.color='#F7F4EF'; }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor='transparent'; e.currentTarget.style.color='#0F0F0F'; }}
+        >
+          Request Demo
+        </button>
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-20 px-6 overflow-hidden bg-grid-pattern">
-        <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
-        
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-sm font-semibold mb-8 text-blue-700"
-          >
-            <span className="flex h-2 w-2 rounded-full bg-blue-600"></span>
-            Advanced Planning & Scheduling
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
-          >
-            The Backbone of <br className="hidden md:block" />
-            <span className="text-blue-600">your Bottomline.</span>
-          </motion.h1>
+      {/* ── HERO ────────────────────────────────────────────────── */}
+      <section className="pt-40 pb-16 px-8 md:px-14">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-10">
+            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#E35B2B' }}></span>
+            <span className="text-[10px] font-black tracking-[0.25em] uppercase" style={{ color: '#8A8478' }}>
+              Advanced Planning &amp; Scheduling
+            </span>
+          </div>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10"
-          >
-            Upstrail bridges deep supply chain expertise with cutting-edge software engineering. We deliver out-of-the-box optimization engines and fulfillment dashboards designed for rapid deployment, giving you intelligent decision-making capabilities with minimal implementation effort.
-          </motion.p>
+          <h1 className="font-black uppercase leading-none tracking-tighter mb-12"
+            style={{ fontSize: 'clamp(3.2rem, 9.5vw, 8.5rem)', lineHeight: 0.88 }}>
+            The backbone<br />
+            of your<br />
+            <span style={{ color: '#E35B2B' }}>bottomline.</span>
+          </h1>
+
+          <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start"
+            style={{ borderTop: '1px solid #D8D3CB', paddingTop: '2rem' }}>
+            <p className="text-base md:text-lg leading-relaxed max-w-xl" style={{ color: '#8A8478' }}>
+              Upstrail bridges deep supply chain expertise with cutting-edge software engineering.
+              We deliver out-of-the-box optimization engines and fulfillment dashboards built
+              for rapid deployment — intelligent decisions with minimal implementation effort.
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="shrink-0 flex items-center gap-3 text-sm font-black tracking-wide px-7 py-4 transition-colors duration-200"
+              style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor='#E35B2B'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
+            >
+              Request a Demo <ArrowRight size={15} />
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* --- DASHBOARD MOCKUP (Using your actual solver UI) --- */}
-      <section className="px-6 pb-24 relative z-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto bg-white rounded-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-slate-200 overflow-hidden"
-        >
-          {/* Faux Browser Chrome */}
-          <div className="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-            <div className="w-3 h-3 rounded-full bg-green-400"></div>
-            <div className="ml-4 text-xs font-medium text-slate-400">app.upstrail.com / executive-summary</div>
+      {/* ── STATS BAR ───────────────────────────────────────────── */}
+      <section style={{ backgroundColor: '#0F0F0F', borderTop: '1px solid #0F0F0F', borderBottom: '1px solid #0F0F0F' }}
+        className="py-10 px-8 md:px-14">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4"
+          style={{ borderLeft: '1px solid #2a2a2a' }}>
+          {[
+            { label: 'OTIF Rate',         value: '96.4%', note: 'Tier-1 Deployment' },
+            { label: 'Volume Fill Rate',  value: '98.1%', note: 'Rolling 90-day avg' },
+            { label: 'Est. Total Spend',  value: '₹14.2M', note: 'Q3 Planning Horizon' },
+            { label: 'Solve Time',        value: '4.2s',  note: 'Optimal convergence' },
+          ].map((s) => (
+            <div key={s.label} className="px-6 md:px-10 py-4"
+              style={{ borderRight: '1px solid #2a2a2a' }}>
+              <div className="text-[9px] font-black tracking-[0.2em] uppercase mb-3" style={{ color: '#555' }}>
+                {s.label}
+              </div>
+              <div className="font-mono font-bold tabular-nums leading-none mb-2"
+                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: '#F7F4EF' }}>
+                {s.value}
+              </div>
+              <div className="text-[10px] font-mono" style={{ color: '#555' }}>{s.note}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── DASHBOARD MOCKUP ────────────────────────────────────── */}
+      <section id="platform" className="py-20 px-8 md:px-14">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-[9px] font-black tracking-[0.25em] uppercase mb-6" style={{ color: '#8A8478' }}>
+            Live Platform Preview
           </div>
-          
-          {/* Dashboard Area - Mirrored from your code */}
-          <div className="p-6 md:p-8 bg-slate-50 flex flex-col gap-6">
-             <div className="flex justify-between items-center">
-               <h3 className="text-2xl font-bold text-slate-900">Executive Summary</h3>
-               <div className="px-4 py-2 bg-white shadow-sm border border-slate-200 rounded-md text-sm font-medium text-slate-600">Q3 Planning Horizon</div>
-             </div>
-             
-             {/* KPI ROW */}
-             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {/* OTIF Rate */}
-                <div className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600 border border-slate-100">
-                      <Target size={18} className="text-indigo-500" />
-                    </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-100">Healthy</span>
-                  </div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">OTIF Rate</p>
-                  <h4 className="text-2xl font-extrabold text-slate-800 tracking-tight tabular-nums">96.4%</h4>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            style={{ border: '1px solid #D8D3CB', overflow: 'hidden' }}
+          >
+            {/* Browser chrome */}
+            <div className="flex items-center gap-2 px-4 py-3"
+              style={{ backgroundColor: '#EDEBE5', borderBottom: '1px solid #D8D3CB' }}>
+              <div className="w-3 h-3 rounded-full bg-red-400"></div>
+              <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+              <div className="w-3 h-3 rounded-full bg-green-400"></div>
+              <span className="ml-4 text-xs font-mono" style={{ color: '#8A8478' }}>
+                app.upstrail.com / executive-summary
+              </span>
+            </div>
 
-                {/* Est Total Spend */}
-                <div className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600 border border-slate-100">
-                      <IndianRupee size={18} className="text-emerald-500" />
-                    </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-100">Budget</span>
-                  </div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Est. Total Spend</p>
-                  <h4 className="text-2xl font-extrabold text-slate-800 tracking-tight tabular-nums">₹14.2M</h4>
+            {/* Dashboard body */}
+            <div className="p-6 md:p-8 flex flex-col gap-6" style={{ backgroundColor: '#F0EDE7' }}>
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-black tracking-tight uppercase" style={{ color: '#0F0F0F' }}>
+                  Executive Summary
+                </h3>
+                <div className="text-xs font-mono px-4 py-2"
+                  style={{ border: '1px solid #D8D3CB', backgroundColor: '#F7F4EF', color: '#8A8478' }}>
+                  Q3 Planning Horizon
                 </div>
+              </div>
 
-                {/* Volume Fill Rate */}
-                <div className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600 border border-slate-100">
-                      <CheckSquare size={18} className="text-blue-500" />
+              {/* KPI row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { icon: <Target size={16} style={{ color: '#6366f1' }} />, label: 'OTIF Rate',         val: '96.4%', tag: 'Healthy',  tagColor: '#1f7a55', tagBg: '#e6f4ee' },
+                  { icon: <IndianRupee size={16} style={{ color: '#1f7a55' }} />, label: 'Est. Total Spend', val: '₹14.2M', tag: 'Budget',  tagColor: '#1f7a55', tagBg: '#e6f4ee' },
+                  { icon: <CheckSquare size={16} style={{ color: '#2563eb' }} />, label: 'Volume Fill Rate', val: '98.1%', tag: null,      tagColor: '', tagBg: '' },
+                  { icon: <AlertTriangle size={16} style={{ color: '#c23a2e' }} />, label: 'Total Shortages', val: '1,204', tag: null,      tagColor: '', tagBg: '' },
+                ].map((kpi) => (
+                  <div key={kpi.label} className="p-5"
+                    style={{ backgroundColor: '#F7F4EF', border: '1px solid #D8D3CB' }}>
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="p-2" style={{ backgroundColor: '#F0EDE7', border: '1px solid #D8D3CB' }}>
+                        {kpi.icon}
+                      </div>
+                      {kpi.tag && (
+                        <span className="text-[9px] font-black tracking-wider uppercase px-2 py-0.5"
+                          style={{ backgroundColor: kpi.tagBg, color: kpi.tagColor, border: `1px solid ${kpi.tagColor}30` }}>
+                          {kpi.tag}
+                        </span>
+                      )}
                     </div>
+                    <p className="text-[9px] font-black tracking-[0.15em] uppercase mb-1" style={{ color: '#8A8478' }}>
+                      {kpi.label}
+                    </p>
+                    <h4 className="text-2xl font-black font-mono tabular-nums" style={{ color: '#0F0F0F' }}>
+                      {kpi.val}
+                    </h4>
                   </div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Volume Fill Rate</p>
-                  <h4 className="text-2xl font-extrabold text-slate-800 tracking-tight tabular-nums">98.1%</h4>
-                </div>
+                ))}
+              </div>
 
-                {/* Total Shortages */}
-                <div className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600 border border-slate-100">
-                      <AlertTriangle size={18} className="text-red-500" />
-                    </div>
-                  </div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Total Shortages</p>
-                  <h4 className="text-2xl font-extrabold text-slate-800 tracking-tight tabular-nums">1,204</h4>
-                </div>
-             </div>
-
-             {/* FULFILLMENT TABLE */}
-             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mt-2">
-                <div className="p-4 border-b border-slate-100 bg-slate-50/50">
-                  <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              {/* Table */}
+              <div style={{ backgroundColor: '#F7F4EF', border: '1px solid #D8D3CB', overflow: 'hidden' }}>
+                <div className="px-4 py-3" style={{ borderBottom: '1px solid #D8D3CB', backgroundColor: '#F0EDE7' }}>
+                  <span className="text-[9px] font-black tracking-[0.2em] uppercase" style={{ color: '#8A8478' }}>
                     Detailed Order Fulfillment
-                  </h3>
+                  </span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse">
-                    <thead className="bg-slate-50 border-b border-slate-200 font-black text-slate-400 uppercase tracking-tighter">
+                    <thead style={{ backgroundColor: '#F0EDE7', borderBottom: '1px solid #D8D3CB' }}>
                       <tr>
-                        <th className="px-6 py-4">Order ID</th>
-                        <th className="px-6 py-4">Item</th>
-                        <th className="px-6 py-4">Due Date</th>
-                        <th className="px-6 py-4 w-48">Status</th>
-                        <th className="px-6 py-4 text-center">Outcome</th>
-                        <th className="px-6 py-4">Reason / Trace</th>
+                        {['Order ID','Item','Due Date','Status','Outcome','Reason / Trace'].map(h => (
+                          <th key={h} className="px-5 py-3 text-[9px] font-black tracking-widest uppercase"
+                            style={{ color: '#8A8478' }}>{h}</th>
+                        ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 font-mono text-slate-600">
-                      <tr className="hover:bg-slate-50/50 transition-colors">
-                        <td className="px-6 py-4 font-bold text-slate-700">ORD-8921</td>
-                        <td className="px-6 py-4 font-sans font-bold text-slate-900">Brake Caliper Assembly</td>
-                        <td className="px-6 py-4 text-slate-500">2026-03-15</td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
-                            <div className="flex justify-between text-[9px] text-slate-400 uppercase font-bold"><span>500</span><span>500</span></div>
-                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                              <div className="h-full rounded-full bg-emerald-500" style={{ width: '100%' }}></div>
+                    <tbody style={{ fontFamily: 'var(--font-mono)' }}>
+                      {[
+                        { id:'ORD-8921', item:'Brake Caliper Assembly',  date:'2026-03-15', fill:100, filled:500, total:500, status:'Fulfilled', statusColor:'#1f7a55', statusBg:'#e6f4ee', barColor:'#1f7a55', reason:'Planned Successfully' },
+                        { id:'ORD-8922', item:'Transmission Housing',     date:'2026-03-16', fill:40,  filled:120, total:300, status:'Partial',   statusColor:'#92680a', statusBg:'#fef3cd', barColor:'#f59e0b', reason:'Insufficient Material' },
+                        { id:'ORD-8923', item:'Steering Column',          date:'2026-03-16', fill:0,   filled:0,   total:150, status:'Shortage',  statusColor:'#c23a2e', statusBg:'#fde8e7', barColor:'#c23a2e', reason:'Line Down – Maintenance' },
+                      ].map(row => (
+                        <tr key={row.id} style={{ borderBottom: '1px solid #EAE7E1' }}>
+                          <td className="px-5 py-4 font-black" style={{ color: '#0F0F0F' }}>{row.id}</td>
+                          <td className="px-5 py-4 font-sans font-bold" style={{ color: '#0F0F0F' }}>{row.item}</td>
+                          <td className="px-5 py-4" style={{ color: '#8A8478' }}>{row.date}</td>
+                          <td className="px-5 py-4">
+                            <div className="flex flex-col gap-1">
+                              <div className="flex justify-between text-[9px] font-black" style={{ color: '#8A8478' }}>
+                                <span>{row.filled}</span><span>{row.total}</span>
+                              </div>
+                              <div className="h-1.5 w-full" style={{ backgroundColor: '#EAE7E1' }}>
+                                <div className="h-full" style={{ width: `${row.fill}%`, backgroundColor: row.barColor }}></div>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className="px-2 py-1 rounded text-[10px] font-bold uppercase border bg-emerald-50 text-emerald-600 border-emerald-100">Fulfilled</span>
-                        </td>
-                        <td className="px-6 py-4 text-slate-500 text-[10px]">Planned Successfully</td>
-                      </tr>
-                      
-                      <tr className="hover:bg-slate-50/50 transition-colors">
-                        <td className="px-6 py-4 font-bold text-slate-700">ORD-8922</td>
-                        <td className="px-6 py-4 font-sans font-bold text-slate-900">Transmission Housing</td>
-                        <td className="px-6 py-4 text-slate-500">2026-03-16</td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
-                            <div className="flex justify-between text-[9px] text-slate-400 uppercase font-bold"><span>120</span><span>300</span></div>
-                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                              <div className="h-full rounded-full bg-amber-400" style={{ width: '40%' }}></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className="px-2 py-1 rounded text-[10px] font-bold uppercase border bg-amber-50 text-amber-600 border-amber-100">Partial</span>
-                        </td>
-                        <td className="px-6 py-4 text-slate-500 text-[10px]">Insufficient Material</td>
-                      </tr>
-
-                      <tr className="hover:bg-slate-50/50 transition-colors">
-                        <td className="px-6 py-4 font-bold text-slate-700">ORD-8923</td>
-                        <td className="px-6 py-4 font-sans font-bold text-slate-900">Steering Column</td>
-                        <td className="px-6 py-4 text-slate-500">2026-03-16</td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
-                            <div className="flex justify-between text-[9px] text-slate-400 uppercase font-bold"><span>0</span><span>150</span></div>
-                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                              <div className="h-full rounded-full bg-red-400" style={{ width: '0%' }}></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className="px-2 py-1 rounded text-[10px] font-bold uppercase border bg-red-50 text-red-600 border-red-100">Shortage</span>
-                        </td>
-                        <td className="px-6 py-4 text-slate-500 text-[10px]">Line Down - Maintenance</td>
-                      </tr>
+                          </td>
+                          <td className="px-5 py-4 text-center">
+                            <span className="px-2 py-1 text-[9px] font-black tracking-wider uppercase"
+                              style={{ backgroundColor: row.statusBg, color: row.statusColor, border: `1px solid ${row.statusColor}30` }}>
+                              {row.status}
+                            </span>
+                          </td>
+                          <td className="px-5 py-4 text-[10px]" style={{ color: '#8A8478' }}>{row.reason}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
-             </div>
-          </div>
-        </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* --- CAPABILITIES GRID --- */}
-      <section id="capabilities" className="py-24 bg-white border-y border-slate-200 px-6">
+      {/* ── CAPABILITIES ────────────────────────────────────────── */}
+      <section id="capabilities" className="py-20 px-8 md:px-14"
+        style={{ borderTop: '1px solid #D8D3CB' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="mb-16 md:text-center">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Core Capabilities</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">An enterprise-grade planning platform designed for complex manufacturing, combining out-of-the-box reliability with a 20% custom-tailored engine for your unique operational constraints.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="p-6">
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <Layers size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-10 md:gap-20 mb-16 items-end">
+            <div>
+              <div className="text-[9px] font-black tracking-[0.25em] uppercase mb-4" style={{ color: '#8A8478' }}>
+                Platform
               </div>
-              <h3 className="text-xl font-bold mb-3">Ready-to-Deploy APS</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Intelligent engine that manages your complete supply planning process from start to finish. Requires minimal configuration while taking 80% of typical supply chain problems off your plate.
-              </p>
+              <h2 className="font-black uppercase tracking-tighter leading-none"
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 0.9 }}>
+                Core<br />Engine
+              </h2>
             </div>
-            
-            <div className="p-6">
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <Database size={24} />
-              </div>
-              <h3 className="text-xl font-bold mb-3">AI Integrated Data Management</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Automatically ingest data from your ERP into our DB. Uses AI-driven mapping to transform unstructured legacy data into clean, solver-ready inputs.
-              </p>
-            </div>
-
-            <div className="p-6">
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <BarChart3 size={24} />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Fulfillment & Execution</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Transform solver outputs into actionable fulfillment plans. Intuitive executive summaries give planners real-time operational visibility.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- PROOF OF WORK / CASE STUDY --- */}
-      <section id="solutions" className="py-24 px-6 bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Proven in the Automotive Sector.</h2>
-            <p className="text-slate-300 text-lg mb-8 leading-relaxed">
-              We partnered with a Tier-1 manufacturing enterprise to deliver a full scale, intelligent planning solution. By bridging our deep supply chain consulting experience with a modern tech stack, we deployed a system that was 70% out-of-the-box and required only 30% customization, delivering a perfect fit that off the shelf software couldn't match
+            <p className="text-base md:text-lg leading-relaxed self-end" style={{ color: '#8A8478' }}>
+              Enterprise-grade planning built for the complexity of real manufacturing operations.
+              80% out-of-the-box reliability. 20% precision-fitted to your constraints.
             </p>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Resolves capacity bottlenecks with automated rollbacks.</li>
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Dynamically scales orders based on component availability.</li>
-              <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="text-blue-400" size={20}/>Splits purchase orders across suppliers while enforcing capacity limits.</li>
-            </ul>
           </div>
-<div className="relative h-[450px] bg-[#0d1117] rounded-xl border border-slate-700 p-6 font-mono text-sm overflow-hidden flex flex-col shadow-2xl">
-  {/* Faux Terminal Header */}
-  <div className="flex items-center gap-2 mb-6 border-b border-slate-800 pb-4">
-    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-    <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-    <span className="text-slate-500 ml-2 text-xs">user@upstrail:~/solver_engine $ python main.py</span>
-  </div>
-  
-  {/* Terminal Output */}
-  <div className="text-slate-300 flex-1 space-y-2 opacity-90">
-    <p className="text-blue-400">INFO: Initializing multi-echelon APS model...</p>
-    <p>Loading dataset: 4,502 nodes, 12,890 edges.</p>
-    <p>Objective function: Minimize (Total Shortage + Production Cost).</p>
-    <p className="text-amber-400 mt-4">WARN: Capacity bottleneck detected at WorkCenter-B (Transmission Assembly).</p>
-    <p>Iter 1: Objective = 145,200 | Gap = 12.4%</p>
-    <p>Iter 2: Objective = 112,050 | Gap = 8.1%</p>
-    <p>Iter 3: Objective = 98,400  | Gap = 3.2%</p>
-    <p>Iter 4: Objective = 95,100  | Gap = 0.5%</p>
-    <p className="text-emerald-400 mt-4 font-bold">SUCCESS: Optimal solution found in 4.2s.</p>
-    <p>Exporting fulfillment plan to database...</p>
-    <p className="mt-2">
-      <span className="text-blue-400">app_server</span> listening on port 8000
-      <motion.span 
-        animate={{ opacity: [0, 1, 0] }} 
-        transition={{ repeat: Infinity, duration: 1 }}
-        className="w-2 h-4 bg-slate-400 inline-block align-middle ml-1"
-      />
-    </p>
-  </div>
-  
-  {/* Bottom fade effect */}
-  <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#0d1117] to-transparent pointer-events-none"></div>
-</div>
+
+          <div style={{ borderTop: '1px solid #D8D3CB' }}>
+            {[
+              {
+                num: '01',
+                title: 'Ready-to-Deploy APS',
+                desc: 'An intelligent engine that manages your complete supply planning process end to end. Minimal configuration. Eliminates 80% of typical supply chain problems immediately upon deployment.'
+              },
+              {
+                num: '02',
+                title: 'AI-Integrated Data Management',
+                desc: 'Automatically ingest data from your ERP into our database. AI-driven mapping transforms unstructured legacy data into clean, solver-ready inputs — no manual ETL required.'
+              },
+              {
+                num: '03',
+                title: 'Fulfillment & Execution',
+                desc: 'Transform solver outputs into actionable fulfillment plans. Planners get real-time operational visibility through intuitive executive summaries — not spreadsheets.'
+              },
+            ].map((cap, i) => (
+              <motion.div
+                key={cap.num}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="grid grid-cols-[48px_1fr] md:grid-cols-[48px_1fr_1fr] gap-6 md:gap-12 py-8"
+                style={{ borderBottom: '1px solid #D8D3CB' }}
+              >
+                <span className="font-mono text-xs font-bold pt-1" style={{ color: '#D8D3CB' }}>{cap.num}</span>
+                <h3 className="text-lg md:text-xl font-black uppercase tracking-tight">{cap.title}</h3>
+                <p className="text-sm leading-relaxed col-start-2 md:col-start-3" style={{ color: '#8A8478' }}>{cap.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
-{/* --- BOTTOM CTA --- */}
-<section className="py-24 px-6 bg-blue-600 text-white text-center relative overflow-hidden">
-  {/* Background Pattern */}
-  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-  
-  <div className="relative z-10 max-w-4xl mx-auto">
-    <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Ready to optimize your supply chain?</h2>
-    <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-      Stop relying on generic ERP modules and manual spreadsheets. Let's deploy an intelligent custom-like planning engine, tailored to fit your manufacturing realities.
-    </p>
-      <button 
-        onClick={() => setIsModalOpen(true)}
-        className="px-8 py-4 bg-white text-blue-600 text-lg font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)] flex items-center gap-2 mx-auto"
-      >
-        Request Demo <ArrowRight size={20} />
-      </button>
-  </div>
-</section>
-      {/* --- FOOTER --- */}
-      <footer className="bg-white border-t border-slate-200 py-12 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-<div className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-  <img src={reactLogo} alt="Upstrail Logo" className="w-6 h-6" />
-  Upstrail
-</div>
-          <div className="text-sm text-slate-500">
-            © {new Date().getFullYear()} Upstrail. All rights reserved.
+
+      {/* ── PROOF / CASE STUDY ──────────────────────────────────── */}
+      <section id="proof" className="py-20 px-8 md:px-14"
+        style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-[9px] font-black tracking-[0.25em] uppercase mb-14" style={{ color: '#555' }}>
+            Case Study — Tier 1 Automotive
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20">
+            <div>
+              <h2 className="font-black uppercase tracking-tighter leading-none mb-8"
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 0.9 }}>
+                Proven in<br />Automotive.
+              </h2>
+              <p className="text-base leading-relaxed mb-10" style={{ color: '#8A8478' }}>
+                We partnered with a Tier-1 manufacturing enterprise to deploy a full-scale
+                intelligent planning solution. 70% out-of-the-box. 30% custom-fitted.
+                A result that off-the-shelf software couldn't get close to.
+              </p>
+              <ul className="space-y-5" style={{ borderTop: '1px solid #2a2a2a', paddingTop: '1.5rem' }}>
+                {[
+                  'Resolves capacity bottlenecks with automated rollbacks',
+                  'Dynamically scales orders based on component availability',
+                  'Splits POs across suppliers while enforcing capacity limits',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-4 text-sm" style={{ color: '#8A8478' }}>
+                    <span className="font-mono font-black shrink-0 mt-0.5" style={{ color: '#E35B2B' }}>→</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Terminal */}
+            <div className="relative p-6 font-mono text-sm overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#0d1117', border: '1px solid #2a2a2a', minHeight: '360px' }}>
+              <div className="flex items-center gap-2 mb-6 pb-4" style={{ borderBottom: '1px solid #2a2a2a' }}>
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <span className="ml-2 text-xs" style={{ color: '#555' }}>
+                  upstrail@solver:~ $ python main.py
+                </span>
+              </div>
+              <div className="flex-1 space-y-2 text-xs leading-relaxed" style={{ color: '#8A8478' }}>
+                <p style={{ color: '#60a5fa' }}>INFO: Initializing multi-echelon APS model...</p>
+                <p>Loading dataset: 4,502 nodes, 12,890 edges.</p>
+                <p>Objective: Minimize (Total Shortage + Production Cost).</p>
+                <p className="pt-2" style={{ color: '#f59e0b' }}>WARN: Capacity bottleneck at WorkCenter-B (Transmission).</p>
+                <p>Iter 1: Objective = 145,200 | Gap = 12.4%</p>
+                <p>Iter 2: Objective = 112,050 | Gap =  8.1%</p>
+                <p>Iter 3: Objective =  98,400 | Gap =  3.2%</p>
+                <p>Iter 4: Objective =  95,100 | Gap =  0.5%</p>
+                <p className="pt-2 font-bold" style={{ color: '#4ade80' }}>SUCCESS: Optimal solution found in 4.2s.</p>
+                <p>Exporting fulfillment plan to database...</p>
+                <p className="pt-1">
+                  <span style={{ color: '#60a5fa' }}>app_server</span> listening on :8000
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ repeat: Infinity, duration: 1 }}
+                    className="inline-block w-2 h-3 align-middle ml-1"
+                    style={{ backgroundColor: '#8A8478' }}
+                  />
+                </p>
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-20 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, #0d1117, transparent)' }}></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM CTA ──────────────────────────────────────────── */}
+      <section className="py-24 px-8 md:px-14" style={{ borderTop: '1px solid #D8D3CB' }}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+          <h2 className="font-black uppercase tracking-tighter leading-none"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6.5rem)', lineHeight: 0.88 }}>
+            Ready to<br />optimize?
+          </h2>
+          <div className="flex flex-col items-start md:items-end gap-5">
+            <p className="text-sm leading-relaxed max-w-xs md:text-right" style={{ color: '#8A8478' }}>
+              Stop relying on generic ERP modules and manual spreadsheets.
+              Let's build an engine that actually fits your operation.
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-3 text-sm font-black tracking-wide px-7 py-4 transition-colors duration-200"
+              style={{ backgroundColor: '#E35B2B', color: '#F7F4EF' }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor='#E35B2B'}
+            >
+              Request Demo <ArrowRight size={15} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ──────────────────────────────────────────────── */}
+      <footer className="py-8 px-8 md:px-14" style={{ borderTop: '1px solid #D8D3CB' }}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3">
+            <UpstrailMark />
+            <span className="text-xs font-black tracking-[0.2em] uppercase">Upstrail</span>
+          </div>
+          <span className="text-xs" style={{ color: '#8A8478' }}>
+            © {new Date().getFullYear()} Upstrail. All rights reserved.
+          </span>
         </div>
       </footer>
-    
-    {/* --- CONTACT MODAL --- */}
+
+      {/* ── MODAL ───────────────────────────────────────────────── */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-200 relative"
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            style={{ backgroundColor: 'rgba(15,15,15,0.6)', backdropFilter: 'blur(4px)' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-lg relative overflow-hidden"
+              style={{ backgroundColor: '#F7F4EF', border: '1px solid #D8D3CB' }}
             >
-              <button 
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
+                className="absolute top-4 right-4 transition-colors"
+                style={{ color: '#8A8478' }}
+                onMouseEnter={e => e.currentTarget.style.color='#0F0F0F'}
+                onMouseLeave={e => e.currentTarget.style.color='#8A8478'}
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Let's optimize your operations.</h3>
-                <p className="text-slate-600 mb-6 text-sm">Fill out the form below and our engineering team will reach out.</p>
+              <div className="p-8 md:p-10">
+                <div className="text-[9px] font-black tracking-[0.25em] uppercase mb-4" style={{ color: '#8A8478' }}>
+                  Get in Touch
+                </div>
+                <h3 className="text-2xl font-black uppercase tracking-tight mb-2">
+                  Let's optimize<br />your operations.
+                </h3>
+                <p className="text-sm mb-8" style={{ color: '#8A8478' }}>
+                  Our engineering team will reach out within one business day.
+                </p>
 
                 {formStatus === 'success' ? (
-                  <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-lg flex items-center gap-3">
-                    <CheckCircle2 size={24} />
-                    <p className="font-semibold">Message sent successfully! We'll be in touch.</p>
+                  <div className="flex items-center gap-3 p-4"
+                    style={{ backgroundColor: '#e6f4ee', border: '1px solid #1f7a55' }}>
+                    <CheckCircle2 size={20} style={{ color: '#1f7a55' }} />
+                    <p className="text-sm font-bold" style={{ color: '#1f7a55' }}>
+                      Sent. We'll be in touch shortly.
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <input type="hidden" name="subject" value="New Demo Request from Upstrail.com" />
                     <input type="hidden" name="from_name" value="Upstrail Website" />
-                    
+
+                    {[
+                      { label: 'Name / Company', name: 'name',    type: 'text',  placeholder: 'Rohit Garg @ Manufacturing Pvt Ltd' },
+                      { label: 'Work Email',     name: 'email',   type: 'email', placeholder: 'rohit@company.com' },
+                    ].map(f => (
+                      <div key={f.name}>
+                        <label className="block text-xs font-black tracking-widest uppercase mb-2"
+                          style={{ color: '#0F0F0F' }}>{f.label}</label>
+                        <input
+                          type={f.type}
+                          name={f.name}
+                          required
+                          placeholder={f.placeholder}
+                          className="w-full px-4 py-3 text-sm outline-none transition-colors"
+                          style={{ backgroundColor: '#EDEBE5', border: '1px solid #D8D3CB', color: '#0F0F0F' }}
+                          onFocus={e => e.target.style.borderColor='#0F0F0F'}
+                          onBlur={e => e.target.style.borderColor='#D8D3CB'}
+                        />
+                      </div>
+                    ))}
+
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-1">Name / Company</label>
-                      <input 
-                        type="text" 
-                        name="name"
-                        required
-                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
-                        placeholder="Rohit Garg @ Manufacturing Pvt Ltd"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-1">Work Email</label>
-                      <input 
-                        type="email" 
-                        name="email"
-                        required
-                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
-                        placeholder="rohit@company.com"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-1">Current Challenges</label>
-                      <textarea 
+                      <label className="block text-xs font-black tracking-widest uppercase mb-2"
+                        style={{ color: '#0F0F0F' }}>Current Challenges</label>
+                      <textarea
                         name="message"
                         required
                         rows="3"
-                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors resize-none"
-                        placeholder="We are struggling with managing inventory.."
+                        placeholder="We're struggling with inventory visibility across plants..."
+                        className="w-full px-4 py-3 text-sm outline-none transition-colors resize-none"
+                        style={{ backgroundColor: '#EDEBE5', border: '1px solid #D8D3CB', color: '#0F0F0F' }}
+                        onFocus={e => e.target.style.borderColor='#0F0F0F'}
+                        onBlur={e => e.target.style.borderColor='#D8D3CB'}
                       ></textarea>
                     </div>
 
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       disabled={formStatus === 'submitting'}
-                      className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                      className="w-full py-3.5 text-sm font-black tracking-widest uppercase transition-colors duration-200 disabled:opacity-50 flex justify-center items-center gap-2"
+                      style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}
+                      onMouseEnter={e => { if (formStatus !== 'submitting') e.currentTarget.style.backgroundColor='#E35B2B'; }}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
                     >
                       {formStatus === 'submitting' ? 'Sending...' : 'Request Demo'}
                     </button>
-                    
+
                     {formStatus === 'error' && (
-                      <p className="text-red-500 text-sm text-center mt-2">Oops! Something went wrong. Please try again.</p>
+                      <p className="text-xs text-center" style={{ color: '#c23a2e' }}>
+                        Something went wrong. Please try again.
+                      </p>
                     )}
                   </form>
                 )}
@@ -472,7 +522,6 @@ const handleSubmit = async (e) => {
           </div>
         )}
       </AnimatePresence>
-
 
     </div>
   );
