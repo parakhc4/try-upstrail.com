@@ -545,9 +545,7 @@ export default function App() {
       <footer className="py-6 md:py-8 px-5 md:px-14" style={{ borderTop: '1px solid #D8D3CB' }}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center rounded" style={{ backgroundColor: '#000', padding: '5px 6px' }}>
-              <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-            </div>
+            <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             <span className="text-xs font-black tracking-[0.2em] uppercase">Upstrail</span>
           </div>
           <span className="text-xs" style={{ color: '#8A8478' }}>
