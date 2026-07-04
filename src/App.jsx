@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  X, CheckCircle2, ArrowRight, AlertTriangle, CheckSquare, IndianRupee, Target,
-  LayoutDashboard, Settings, Table, ClipboardList, Calendar, BarChart3,
-  GanttChart, Share2, Truck, Play,
+  X, CheckCircle2, ArrowRight, Play, TrendingUp,
 } from 'lucide-react';
 
 const UpstrailMark = () => (
@@ -13,14 +11,15 @@ const UpstrailMark = () => (
   </svg>
 );
 
-const NavItem = ({ icon, label, active, muted }) => (
-  <div className="flex items-center gap-2.5 px-2 py-1.5 rounded text-[11px] font-semibold cursor-pointer"
+const SideNavItem = ({ label, active }) => (
+  <div className="flex items-center px-4 py-1.5 text-[11.5px] cursor-pointer"
     style={{
-      backgroundColor: active ? '#e7eefc' : 'transparent',
-      color: active ? '#2563eb' : muted ? '#b0b8c4' : '#1b2330',
+      borderLeft: active ? '2px solid #4f46e5' : '2px solid transparent',
+      color: active ? '#4f46e5' : '#374151',
+      fontWeight: active ? 600 : 400,
+      backgroundColor: active ? '#f5f3ff' : 'transparent',
     }}>
-    <span style={{ color: active ? '#2563eb' : muted ? '#b0b8c4' : '#67707e', flexShrink: 0 }}>{icon}</span>
-    <span className="truncate">{label}</span>
+    {label}
   </div>
 );
 
@@ -168,180 +167,240 @@ export default function App() {
               </span>
             </div>
 
-            {/* App shell — sidebar + main */}
-            <div className="flex" style={{ backgroundColor: '#eef1f5', minHeight: '520px' }}>
+            {/* App shell */}
+            <div className="flex flex-col" style={{ backgroundColor: '#f3f4f6' }}>
 
-              {/* ── Sidebar (hidden on mobile) ─────────────────── */}
-              <aside className="hidden md:flex flex-col shrink-0"
-                style={{ width: '200px', backgroundColor: '#ffffff', borderRight: '1px solid #dde2e9' }}>
-
-                {/* Logo */}
-                <div className="flex items-center gap-2.5 px-4 py-3.5"
-                  style={{ borderBottom: '1px solid #dde2e9' }}>
-                  <div className="w-7 h-7 flex items-center justify-center rounded text-white text-[10px] font-bold shrink-0"
-                    style={{ backgroundColor: '#2563eb' }}>
-                    APS
+              {/* ── Top purple header bar ──────────────────────── */}
+              <div className="flex items-center justify-between px-4 shrink-0"
+                style={{ height: '46px', background: 'linear-gradient(to right, #312e81, #4338ca)', color: '#fff' }}>
+                {/* Left: logo + breadcrumb */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <div className="w-7 h-7 flex items-center justify-center rounded text-white text-[10px] font-bold"
+                      style={{ backgroundColor: '#4f46e5' }}>
+                      AP
+                    </div>
+                    <div className="hidden md:flex flex-col leading-none">
+                      <span className="text-[11px] font-bold">APS Core</span>
+                      <span className="text-[9px] opacity-60">v1.2.1</span>
+                    </div>
                   </div>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-[11px] font-bold tracking-widest uppercase truncate" style={{ color: '#1b2330' }}>
-                      APS Core
-                    </span>
-                    <span className="text-[9px] font-mono" style={{ color: '#67707e' }}>v2.4.1</span>
-                  </div>
-                </div>
-
-                {/* Client chip */}
-                <div className="px-3 py-2" style={{ borderBottom: '1px solid #dde2e9' }}>
-                  <p className="text-[9px] font-bold uppercase tracking-[.09em] mb-1" style={{ color: '#67707e' }}>Client</p>
-                  <div className="flex items-center gap-1.5 text-[11px] font-medium px-2 py-1 rounded"
-                    style={{ backgroundColor: '#f5f7fa', border: '1px solid #dde2e9', color: '#1b2330' }}>
-                    <span className="truncate">Tier-1 Auto Pvt.</span>
-                    <span className="w-1.5 h-1.5 rounded-full ml-auto shrink-0" style={{ backgroundColor: '#1f7a55' }}></span>
-                  </div>
-                </div>
-
-                {/* Nav */}
-                <nav className="flex-1 px-2 py-2 overflow-hidden">
-                  <p className="text-[9px] font-black uppercase tracking-[.09em] px-2 pt-2 pb-1.5" style={{ color: '#67707e' }}>
-                    Workspace
-                  </p>
-                  <div className="space-y-0.5">
-                    <NavItem icon={<Table size={13}/>} label="Dataset Explorer" muted />
-                    <NavItem icon={<Settings size={13}/>} label="Parameters" muted />
-                  </div>
-
-                  <p className="text-[9px] font-black uppercase tracking-[.09em] px-2 pt-3 pb-1.5" style={{ color: '#67707e' }}>
-                    Results
-                  </p>
-                  <div className="space-y-0.5">
-                    <NavItem icon={<LayoutDashboard size={13}/>} label="Executive Summary" active />
-                    <NavItem icon={<CheckSquare size={13}/>} label="Demand Fulfillment" />
-                    <NavItem icon={<ClipboardList size={13}/>} label="MRP Inventory Plan" />
-                    <NavItem icon={<Calendar size={13}/>} label="Capacity Calendar" />
-                    <NavItem icon={<BarChart3 size={13}/>} label="Machine Analytics" />
-                    <NavItem icon={<GanttChart size={13}/>} label="Resource Gantt" />
-                    <NavItem icon={<Share2 size={13}/>} label="Network Graph" />
-                    <NavItem icon={<Truck size={13}/>} label="Production Plan" />
-                  </div>
-                </nav>
-
-                {/* Footer */}
-                <div className="px-4 py-3" style={{ borderTop: '1px solid #dde2e9' }}>
-                  <p className="text-[8px] font-mono uppercase tracking-widest" style={{ color: '#b0b8c4' }}>
-                    APS Core™<br />Upstrail Technologies
-                  </p>
-                </div>
-              </aside>
-
-              {/* ── Main area ──────────────────────────────────── */}
-              <div className="flex-1 flex flex-col min-w-0">
-
-                {/* Header */}
-                <header className="flex items-center justify-between px-5 shrink-0"
-                  style={{ height: '48px', backgroundColor: '#ffffff', borderBottom: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: '#94a3b8' }}>
-                    Workspace / executive-summary
+                  <span className="opacity-40 text-xs hidden md:block">|</span>
+                  <span className="text-[11px] opacity-80 hidden md:block">Workspace /</span>
+                  <span className="text-[11px] font-semibold hidden md:block">Executive summary</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded hidden md:block"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    demo
                   </span>
-                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-bold text-white"
-                    style={{ background: 'linear-gradient(to right, #4f46e5, #4338ca)', boxShadow: '0 4px 12px rgba(99,102,241,0.25)' }}>
-                    <Play size={10} fill="currentColor" />
-                    RUN OPTIMIZATION
+                </div>
+                {/* Right: action buttons */}
+                <div className="flex items-center gap-2">
+                  <button className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-semibold"
+                    style={{ border: '1px solid rgba(255,255,255,0.3)', color: '#fff', backgroundColor: 'rgba(255,255,255,0.08)' }}>
+                    <TrendingUp size={11} /> Run forecasting
                   </button>
-                </header>
+                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-bold"
+                    style={{ backgroundColor: '#4f46e5', color: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.25)' }}>
+                    <Play size={10} fill="currentColor" /> Run optimization
+                  </button>
+                </div>
+              </div>
 
-                {/* Content */}
-                <div className="flex-1 p-4 md:p-5 overflow-hidden">
-                  {/* KPI row */}
+              {/* ── Below header: sidebar + meta panel + content ── */}
+              <div className="flex" style={{ minHeight: '480px' }}>
+
+                {/* Sidebar */}
+                <aside className="hidden md:flex flex-col shrink-0"
+                  style={{ width: '185px', backgroundColor: '#ffffff', borderRight: '1px solid #e5e7eb' }}>
+                  <nav className="flex-1 py-3 overflow-hidden">
+                    <p className="text-[9px] font-bold uppercase tracking-[.1em] px-4 pt-1 pb-2" style={{ color: '#9ca3af' }}>
+                      Workspace
+                    </p>
+                    <SideNavItem label="Dataset explorer" />
+                    <SideNavItem label="Parameters" />
+
+                    <p className="text-[9px] font-bold uppercase tracking-[.1em] px-4 pt-4 pb-2" style={{ color: '#9ca3af' }}>
+                      Advanced Planning
+                    </p>
+                    <div className="flex items-center">
+                      <SideNavItem label="Demand planning" />
+                      <span className="w-1.5 h-1.5 rounded-full mr-3 shrink-0" style={{ backgroundColor: '#4f46e5' }}></span>
+                    </div>
+                    <SideNavItem label="Promotions" />
+                    <SideNavItem label="SKU rationalization" />
+                    <SideNavItem label="FEFO lot planning" />
+
+                    <p className="text-[9px] font-bold uppercase tracking-[.1em] px-4 pt-4 pb-2" style={{ color: '#9ca3af' }}>
+                      Results
+                    </p>
+                    <SideNavItem label="Executive summary" active />
+                    <SideNavItem label="Demand fulfillment" />
+                    <SideNavItem label="MRP inventory plan" />
+                    <SideNavItem label="Capacity calendar" />
+                    <SideNavItem label="Machine analytics" />
+                    <SideNavItem label="Resource Gantt" />
+                    <SideNavItem label="Network graph" />
+                    <SideNavItem label="Production plan" />
+                    <SideNavItem label="Subcontract plan" />
+                    <SideNavItem label="Trace RCA" />
+                    <SideNavItem label="Safety stock" />
+                    <SideNavItem label="Exception report" />
+                  </nav>
+                </aside>
+
+                {/* Meta panel */}
+                <div className="hidden md:flex flex-col shrink-0"
+                  style={{ width: '175px', backgroundColor: '#ffffff', borderRight: '1px solid #e5e7eb', padding: '12px 12px' }}>
+                  {/* Last Run */}
+                  <div className="rounded p-2.5 mb-3" style={{ border: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
+                    <p className="text-[9px] font-bold uppercase tracking-[.08em] mb-2" style={{ color: '#9ca3af' }}>Last Run</p>
+                    <p className="text-[12px] font-bold mb-2" style={{ color: '#111827' }}>v3 · 3 Jul, 18:47</p>
+                    {[
+                      ['Start date', '2026-07-03'],
+                      ['Horizon', '30 days'],
+                      ['Constrained', 'Yes'],
+                      ['Build ahead', 'Yes'],
+                    ].map(([k, v]) => (
+                      <div key={k} className="flex justify-between text-[10px] py-0.5">
+                        <span style={{ color: '#6b7280' }}>{k}</span>
+                        <span className="font-semibold" style={{ color: '#111827' }}>{v}</span>
+                      </div>
+                    ))}
+                    <div className="mt-2 pt-2 space-y-0.5" style={{ borderTop: '1px solid #e5e7eb' }}>
+                      <p className="text-[10px]" style={{ color: '#ef4444' }}>▲ 31 orders with shortage</p>
+                      <p className="text-[10px]" style={{ color: '#22c55e' }}>✓ 0 capacity violations</p>
+                      <p className="text-[10px]" style={{ color: '#9ca3af' }}>→ Solved in 6.87s</p>
+                    </div>
+                  </div>
+                  {/* Versions */}
+                  <p className="text-[9px] font-bold uppercase tracking-[.08em] mb-1.5" style={{ color: '#9ca3af' }}>Versions</p>
+                  {[
+                    { v: 'v3', t: '18:47', r: '79.4%', active: true },
+                    { v: 'v2', t: '15:22', r: '79.4%', active: false },
+                    { v: 'v1', t: '14:02', r: '100%',  active: false },
+                  ].map(row => (
+                    <div key={row.v} className="flex justify-between items-center px-2 py-1.5 rounded text-[11px]"
+                      style={{
+                        backgroundColor: row.active ? '#ede9fe' : 'transparent',
+                        color: row.active ? '#4f46e5' : '#374151',
+                        fontWeight: row.active ? 600 : 400,
+                      }}>
+                      <span style={{ fontFamily: 'monospace' }}>{row.v} · {row.t}</span>
+                      <span style={{ fontFamily: 'monospace', color: row.active ? '#4f46e5' : '#9ca3af' }}>{row.r}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Main content */}
+                <div className="flex-1 flex flex-col min-w-0 p-4 md:p-5" style={{ backgroundColor: '#f3f4f6' }}>
+
+                  {/* Tabs */}
+                  <div className="flex gap-0 mb-4 shrink-0" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    {['Overview', 'Fulfillment', 'Constraint analysis'].map((tab, i) => (
+                      <div key={tab} className="px-4 py-2 text-[11px] font-semibold cursor-pointer"
+                        style={{
+                          borderBottom: i === 0 ? '2px solid #4f46e5' : '2px solid transparent',
+                          color: i === 0 ? '#4f46e5' : '#6b7280',
+                          marginBottom: '-1px',
+                        }}>
+                        {tab}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* KPI row — no icons, just label + number */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                     {[
-                      { icon: <Target size={14} style={{ color: '#6366f1' }}/>, label: 'OTIF Rate',        val: '96.4%', tag: 'Healthy', tagColor: '#1f7a55', tagBg: '#e6f4ee' },
-                      { icon: <IndianRupee size={14} style={{ color: '#1f7a55' }}/>, label: 'Est. Total Spend', val: '₹14.2M', tag: 'Budget', tagColor: '#1f7a55', tagBg: '#e6f4ee' },
-                      { icon: <CheckSquare size={14} style={{ color: '#2563eb' }}/>, label: 'Fill Rate',        val: '98.1%', tag: null },
-                      { icon: <AlertTriangle size={14} style={{ color: '#c23a2e' }}/>, label: 'Shortages',       val: '1,204', tag: null },
+                      { label: 'OTIF rate',        val: '96.4%'  },
+                      { label: 'Est. total spend',  val: '₹14.2M' },
+                      { label: 'Volume fill rate',  val: '98.1%'  },
+                      { label: 'Total shortages',   val: '1,204'  },
                     ].map((kpi) => (
-                      <div key={kpi.label} className="p-3 md:p-4 rounded-md"
-                        style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="p-1.5 rounded" style={{ backgroundColor: '#f5f7fa', border: '1px solid #dde2e9' }}>
-                            {kpi.icon}
-                          </div>
-                          {kpi.tag && (
-                            <span className="text-[8px] font-bold uppercase px-1.5 py-0.5 rounded"
-                              style={{ backgroundColor: kpi.tagBg, color: kpi.tagColor }}>
-                              {kpi.tag}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-[8px] font-black tracking-[0.12em] uppercase mb-0.5" style={{ color: '#94a3b8' }}>
-                          {kpi.label}
-                        </p>
-                        <h4 className="text-lg md:text-xl font-extrabold tabular-nums leading-none" style={{ color: '#1b2330' }}>
+                      <div key={kpi.label} className="p-3 md:p-4 rounded"
+                        style={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                        <p className="text-[10px] mb-1" style={{ color: '#6b7280' }}>{kpi.label}</p>
+                        <h4 className="font-bold tabular-nums" style={{ fontSize: 'clamp(1.1rem,2.5vw,1.6rem)', color: '#111827', lineHeight: 1.1 }}>
                           {kpi.val}
                         </h4>
                       </div>
                     ))}
                   </div>
 
-                  {/* Chart + Table row */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Chart + Constraint analysis */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 flex-1">
+
                     {/* Area chart */}
-                    <div className="md:col-span-2 p-4 rounded-md"
-                      style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                      <div className="flex justify-between items-center mb-3">
-                        <p className="text-[9px] font-black tracking-[0.2em] uppercase" style={{ color: '#94a3b8' }}>
-                          Cumulative Supply vs Demand
-                        </p>
-                        <div className="flex items-center gap-3">
-                          <span className="flex items-center gap-1 text-[9px]" style={{ color: '#67707e' }}>
-                            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#6366f1' }}></span>Supply
-                          </span>
-                          <span className="flex items-center gap-1 text-[9px]" style={{ color: '#67707e' }}>
-                            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#cbd5e1' }}></span>Demand
-                          </span>
-                        </div>
+                    <div className="md:col-span-2 p-4 rounded flex flex-col"
+                      style={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                      <p className="text-[11px] font-semibold mb-3" style={{ color: '#111827' }}>Cumulative supply vs demand</p>
+                      <div className="flex items-center gap-4 mb-2">
+                        <span className="flex items-center gap-1.5 text-[10px]" style={{ color: '#6b7280' }}>
+                          <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 2"/></svg>
+                          Demand
+                        </span>
+                        <span className="flex items-center gap-1.5 text-[10px]" style={{ color: '#6b7280' }}>
+                          <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#4f46e5" strokeWidth="2"/></svg>
+                          Supply
+                        </span>
                       </div>
-                      <svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '90px' }}>
-                        {[22,44,66].map(y => (
-                          <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="#f1f5f9" strokeWidth="1"/>
+                      <svg viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', flex: 1, minHeight: '90px' }}>
+                        {[20,50,80].map(y => (
+                          <line key={y} x1="30" y1={y} x2="400" y2={y} stroke="#f1f5f9" strokeWidth="1"/>
                         ))}
-                        <path d="M0,75 L57,68 L114,56 L171,50 L228,40 L285,34 L342,28 L400,22 L400,90 L0,90 Z"
-                          fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5"/>
-                        <path d="M0,80 L57,70 L114,58 L171,45 L228,34 L285,24 L342,17 L400,10 L400,90 L0,90 Z"
-                          fill="#eef2ff" stroke="#6366f1" strokeWidth="2"/>
-                        {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'].map((m,i) => (
-                          <text key={m} x={i*57+2} y={88} fontSize="7" fill="#94a3b8">{m}</text>
+                        {['80L','60L','40L','20L','0'].map((l,i) => (
+                          <text key={l} x="0" y={[20,38,56,74,92][i]} fontSize="7" fill="#9ca3af">{l}</text>
+                        ))}
+                        {/* Demand dashed */}
+                        <path d="M40,85 L105,82 L170,79 L235,75 L300,72 L365,69 L400,67"
+                          fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 3"/>
+                        {/* Supply solid */}
+                        <path d="M40,88 L105,85 L170,80 L235,73 L300,64 L365,55 L400,50 L400,100 L40,100 Z"
+                          fill="#ede9fe" stroke="none"/>
+                        <path d="M40,88 L105,85 L170,80 L235,73 L300,64 L365,55 L400,50"
+                          fill="none" stroke="#4f46e5" strokeWidth="2"/>
+                        {['Jul 7','Aug 9','Sep 11','Oct 14','Nov 16','Dec 19','Jan 28'].map((m,i) => (
+                          <text key={m} x={40+i*60} y={108} fontSize="7" fill="#9ca3af">{m}</text>
                         ))}
                       </svg>
                     </div>
 
-                    {/* Order table (compact) */}
-                    <div className="rounded-md overflow-hidden"
-                      style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                      <div className="px-3 py-2" style={{ borderBottom: '1px solid #dde2e9', backgroundColor: '#f5f7fa' }}>
-                        <span className="text-[8px] font-black tracking-[0.2em] uppercase" style={{ color: '#94a3b8' }}>
-                          Order Fulfillment
-                        </span>
+                    {/* Constraint analysis */}
+                    <div className="p-4 rounded flex flex-col"
+                      style={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                      <p className="text-[11px] font-semibold mb-3" style={{ color: '#111827' }}>Constraint analysis</p>
+                      {/* Donut */}
+                      <div className="flex justify-center mb-3">
+                        <svg viewBox="0 0 90 90" width="90" height="90">
+                          {/* Donut segments: 39%, 37%, 24% */}
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#e5e7eb" strokeWidth="14"/>
+                          {/* Segment 1: 39% = 140.4deg — indigo */}
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#4f46e5" strokeWidth="14"
+                            strokeDasharray={`${39*2.01} ${100*2.01}`} strokeDashoffset={`${25*2.01}`}
+                            transform="rotate(-90 45 45)"/>
+                          {/* Segment 2: 37% — blue */}
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#6366f1" strokeWidth="14"
+                            strokeDasharray={`${37*2.01} ${100*2.01}`} strokeDashoffset={`${-14*2.01}`}
+                            transform="rotate(-90 45 45)"/>
+                          {/* Segment 3: 24% — light */}
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#c7d2fe" strokeWidth="14"
+                            strokeDasharray={`${24*2.01} ${100*2.01}`} strokeDashoffset={`${-51*2.01}`}
+                            transform="rotate(-90 45 45)"/>
+                          <text x="45" y="42" textAnchor="middle" fontSize="13" fontWeight="700" fill="#111827">96.4%</text>
+                          <text x="45" y="53" textAnchor="middle" fontSize="7" fill="#9ca3af">OTIF</text>
+                        </svg>
                       </div>
-                      <div>
+                      {/* Constraint list */}
+                      <div className="space-y-2">
                         {[
-                          { id:'ORD-8921', item:'Brake Caliper',   fill:100, status:'Fulfilled', sColor:'#1f7a55', sBg:'#e6f4ee', bColor:'#1f7a55' },
-                          { id:'ORD-8922', item:'Trans. Housing',  fill:40,  status:'Partial',   sColor:'#92680a', sBg:'#fef3cd', bColor:'#f59e0b' },
-                          { id:'ORD-8923', item:'Steering Column', fill:0,   status:'Shortage',  sColor:'#c23a2e', sBg:'#fde8e7', bColor:'#c23a2e' },
-                        ].map((row, i) => (
-                          <div key={row.id} className="px-3 py-2.5"
-                            style={{ borderBottom: i < 2 ? '1px solid #dde2e9' : 'none' }}>
-                            <div className="flex justify-between items-start mb-1.5">
-                              <div>
-                                <p className="text-[9px] font-bold" style={{ color: '#1b2330', fontFamily: 'monospace' }}>{row.id}</p>
-                                <p className="text-[9px]" style={{ color: '#67707e' }}>{row.item}</p>
-                              </div>
-                              <span className="text-[8px] font-bold uppercase px-1.5 py-0.5 rounded"
-                                style={{ backgroundColor: row.sBg, color: row.sColor }}>
-                                {row.status}
-                              </span>
-                            </div>
-                            <div className="h-1 w-full rounded-full" style={{ backgroundColor: '#dde2e9' }}>
-                              <div className="h-full rounded-full" style={{ width: `${row.fill}%`, backgroundColor: row.bColor }}></div>
+                          { label: 'Capacity Bottleneck',   n: '16 constraints', pct: '39%', color: '#4f46e5' },
+                          { label: 'Lead Time Constraint',  n: '15 constraints', pct: '37%', color: '#6366f1' },
+                          { label: 'Other Constraint',      n: '10 constraints', pct: '24%', color: '#c7d2fe' },
+                        ].map(c => (
+                          <div key={c.label} className="flex items-start gap-2">
+                            <div className="w-0.5 rounded-full mt-0.5 shrink-0" style={{ height: '32px', backgroundColor: c.color }}></div>
+                            <div>
+                              <p className="text-[10px] font-semibold" style={{ color: '#111827' }}>{c.label}</p>
+                              <p className="text-[9px]" style={{ color: '#9ca3af' }}>{c.n} ({c.pct})</p>
                             </div>
                           </div>
                         ))}
