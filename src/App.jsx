@@ -14,10 +14,10 @@ const UpstrailMark = () => (
 const SideNavItem = ({ label, active }) => (
   <div className="flex items-center px-4 py-1.5 text-[11.5px] cursor-pointer"
     style={{
-      borderLeft: active ? '2px solid #4f46e5' : '2px solid transparent',
-      color: active ? '#4f46e5' : '#374151',
+      borderLeft: active ? '2px solid #3b82f6' : '2px solid transparent',
+      color: active ? '#1d4ed8' : '#4b5563',
       fontWeight: active ? 600 : 400,
-      backgroundColor: active ? '#f5f3ff' : 'transparent',
+      backgroundColor: active ? '#eff6ff' : 'transparent',
     }}>
     {label}
   </div>
@@ -170,37 +170,34 @@ export default function App() {
             {/* App shell */}
             <div className="flex flex-col" style={{ backgroundColor: '#f3f4f6' }}>
 
-              {/* ── Top purple header bar ──────────────────────── */}
-              <div className="flex items-center justify-between px-4 shrink-0"
-                style={{ height: '46px', background: 'linear-gradient(to right, #312e81, #4338ca)', color: '#fff' }}>
+              {/* ── Top header bar ──────────────────────────────── */}
+              <div className="flex items-center justify-between px-3 shrink-0"
+                style={{ height: '46px', backgroundColor: '#0f172a', color: '#cbd5e1' }}>
                 {/* Left: logo + breadcrumb */}
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 shrink-0">
-                    <div className="w-7 h-7 flex items-center justify-center rounded text-white text-[10px] font-bold"
-                      style={{ backgroundColor: '#4f46e5' }}>
-                      AP
-                    </div>
+                  <div className="flex items-center gap-2 shrink-0 px-2 py-1"
+                    style={{ backgroundColor: '#000', borderRadius: '4px' }}>
+                    <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
                     <div className="hidden md:flex flex-col leading-none">
-                      <span className="text-[11px] font-bold">APS Core</span>
-                      <span className="text-[9px] opacity-60">v1.2.1</span>
+                      <span className="text-[11px] font-bold" style={{ color: '#f1f5f9' }}>APS Core</span>
+                      <span className="text-[9px]" style={{ color: '#64748b' }}>v1.2.1</span>
                     </div>
                   </div>
-                  <span className="opacity-40 text-xs hidden md:block">|</span>
-                  <span className="text-[11px] opacity-80 hidden md:block">Workspace /</span>
-                  <span className="text-[11px] font-semibold hidden md:block">Executive summary</span>
+                  <span className="text-[10px] hidden md:block" style={{ color: '#475569' }}>Workspace /</span>
+                  <span className="text-[11px] font-semibold hidden md:block" style={{ color: '#e2e8f0' }}>Executive summary</span>
                   <span className="text-[9px] px-1.5 py-0.5 rounded hidden md:block"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    style={{ backgroundColor: '#1e293b', border: '1px solid #334155', color: '#94a3b8' }}>
                     demo
                   </span>
                 </div>
                 {/* Right: action buttons */}
                 <div className="flex items-center gap-2">
-                  <button className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-semibold"
-                    style={{ border: '1px solid rgba(255,255,255,0.3)', color: '#fff', backgroundColor: 'rgba(255,255,255,0.08)' }}>
+                  <button className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-medium"
+                    style={{ border: '1px solid #334155', color: '#94a3b8', backgroundColor: 'transparent' }}>
                     <TrendingUp size={11} /> Run forecasting
                   </button>
-                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-bold"
-                    style={{ backgroundColor: '#4f46e5', color: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.25)' }}>
+                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded text-[10px] font-semibold"
+                    style={{ backgroundColor: '#1d4ed8', color: '#fff' }}>
                     <Play size={10} fill="currentColor" /> Run optimization
                   </button>
                 </div>
@@ -281,12 +278,12 @@ export default function App() {
                   ].map(row => (
                     <div key={row.v} className="flex justify-between items-center px-2 py-1.5 rounded text-[11px]"
                       style={{
-                        backgroundColor: row.active ? '#ede9fe' : 'transparent',
-                        color: row.active ? '#4f46e5' : '#374151',
+                        backgroundColor: row.active ? '#eff6ff' : 'transparent',
+                        color: row.active ? '#1d4ed8' : '#6b7280',
                         fontWeight: row.active ? 600 : 400,
                       }}>
                       <span style={{ fontFamily: 'monospace' }}>{row.v} · {row.t}</span>
-                      <span style={{ fontFamily: 'monospace', color: row.active ? '#4f46e5' : '#9ca3af' }}>{row.r}</span>
+                      <span style={{ fontFamily: 'monospace', color: row.active ? '#1d4ed8' : '#9ca3af' }}>{row.r}</span>
                     </div>
                   ))}
                 </div>
@@ -299,8 +296,8 @@ export default function App() {
                     {['Overview', 'Fulfillment', 'Constraint analysis'].map((tab, i) => (
                       <div key={tab} className="px-4 py-2 text-[11px] font-semibold cursor-pointer"
                         style={{
-                          borderBottom: i === 0 ? '2px solid #4f46e5' : '2px solid transparent',
-                          color: i === 0 ? '#4f46e5' : '#6b7280',
+                          borderBottom: i === 0 ? '2px solid #3b82f6' : '2px solid transparent',
+                          color: i === 0 ? '#1d4ed8' : '#6b7280',
                           marginBottom: '-1px',
                         }}>
                         {tab}
@@ -339,7 +336,7 @@ export default function App() {
                           Demand
                         </span>
                         <span className="flex items-center gap-1.5 text-[10px]" style={{ color: '#6b7280' }}>
-                          <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#4f46e5" strokeWidth="2"/></svg>
+                          <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#3b82f6" strokeWidth="2"/></svg>
                           Supply
                         </span>
                       </div>
@@ -355,9 +352,9 @@ export default function App() {
                           fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 3"/>
                         {/* Supply solid */}
                         <path d="M40,88 L105,85 L170,80 L235,73 L300,64 L365,55 L400,50 L400,100 L40,100 Z"
-                          fill="#ede9fe" stroke="none"/>
+                          fill="#dbeafe" stroke="none" fillOpacity="0.4"/>
                         <path d="M40,88 L105,85 L170,80 L235,73 L300,64 L365,55 L400,50"
-                          fill="none" stroke="#4f46e5" strokeWidth="2"/>
+                          fill="none" stroke="#3b82f6" strokeWidth="1.5"/>
                         {['Jul 7','Aug 9','Sep 11','Oct 14','Nov 16','Dec 19','Jan 28'].map((m,i) => (
                           <text key={m} x={40+i*60} y={108} fontSize="7" fill="#9ca3af">{m}</text>
                         ))}
@@ -374,15 +371,15 @@ export default function App() {
                           {/* Donut segments: 39%, 37%, 24% */}
                           <circle cx="45" cy="45" r="32" fill="none" stroke="#e5e7eb" strokeWidth="14"/>
                           {/* Segment 1: 39% = 140.4deg — indigo */}
-                          <circle cx="45" cy="45" r="32" fill="none" stroke="#4f46e5" strokeWidth="14"
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#1e40af" strokeWidth="14"
                             strokeDasharray={`${39*2.01} ${100*2.01}`} strokeDashoffset={`${25*2.01}`}
                             transform="rotate(-90 45 45)"/>
                           {/* Segment 2: 37% — blue */}
-                          <circle cx="45" cy="45" r="32" fill="none" stroke="#6366f1" strokeWidth="14"
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#3b82f6" strokeWidth="14"
                             strokeDasharray={`${37*2.01} ${100*2.01}`} strokeDashoffset={`${-14*2.01}`}
                             transform="rotate(-90 45 45)"/>
                           {/* Segment 3: 24% — light */}
-                          <circle cx="45" cy="45" r="32" fill="none" stroke="#c7d2fe" strokeWidth="14"
+                          <circle cx="45" cy="45" r="32" fill="none" stroke="#bfdbfe" strokeWidth="14"
                             strokeDasharray={`${24*2.01} ${100*2.01}`} strokeDashoffset={`${-51*2.01}`}
                             transform="rotate(-90 45 45)"/>
                           <text x="45" y="42" textAnchor="middle" fontSize="13" fontWeight="700" fill="#111827">96.4%</text>
@@ -392,9 +389,9 @@ export default function App() {
                       {/* Constraint list */}
                       <div className="space-y-2">
                         {[
-                          { label: 'Capacity Bottleneck',   n: '16 constraints', pct: '39%', color: '#4f46e5' },
-                          { label: 'Lead Time Constraint',  n: '15 constraints', pct: '37%', color: '#6366f1' },
-                          { label: 'Other Constraint',      n: '10 constraints', pct: '24%', color: '#c7d2fe' },
+                          { label: 'Capacity Bottleneck',   n: '16 constraints', pct: '39%', color: '#1e40af' },
+                          { label: 'Lead Time Constraint',  n: '15 constraints', pct: '37%', color: '#3b82f6' },
+                          { label: 'Other Constraint',      n: '10 constraints', pct: '24%', color: '#bfdbfe' },
                         ].map(c => (
                           <div key={c.label} className="flex items-start gap-2">
                             <div className="w-0.5 rounded-full mt-0.5 shrink-0" style={{ height: '32px', backgroundColor: c.color }}></div>
