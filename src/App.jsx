@@ -100,9 +100,10 @@ export default function App() {
           <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-start"
             style={{ borderTop: '1px solid #D8D3CB', paddingTop: '1.5rem' }}>
             <p className="text-base md:text-lg leading-relaxed max-w-xl" style={{ color: '#8A8478' }}>
-              Upstrail bridges deep supply chain expertise with cutting-edge software engineering.
-              We deliver out-of-the-box optimization engines and fulfillment dashboards built
-              for rapid deployment, intelligent decisions with minimal implementation effort.
+              Upstrail helps manufacturers plan smarter, from forecast to factory floor. APSCore predicts demand,
+              then generates optimized production schedules in minutes, work that usually takes planners hours
+              in spreadsheets. The result is fewer stockouts, less excess inventory, and a plan your team can
+              actually trust.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -416,12 +417,12 @@ export default function App() {
               {
                 num: '02',
                 title: 'AI-Integrated Data Management',
-                desc: 'Automatically ingest data from your ERP into our database. AI-driven mapping transforms unstructured legacy data into clean, solver-ready inputs — no manual ETL required.'
+                desc: 'Automatically ingest data from your ERP into our database. AI-driven mapping transforms unstructured legacy data into clean, solver-ready inputs with no manual ETL required.'
               },
               {
                 num: '03',
                 title: 'Fulfillment & Execution',
-                desc: 'Transform solver outputs into actionable fulfillment plans. Planners get real-time operational visibility through intuitive executive summaries — not spreadsheets.'
+                desc: 'Transform solver outputs into actionable fulfillment plans. Planners get real-time operational visibility through intuitive executive summaries, not spreadsheets.'
               },
             ].map((cap, i) => (
               <motion.div
@@ -447,7 +448,7 @@ export default function App() {
         style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-[9px] font-black tracking-[0.25em] uppercase mb-10 md:mb-14" style={{ color: '#555' }}>
-            Case Study — Tier 1 Automotive
+            Case Study / Tier 1 Automotive
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
