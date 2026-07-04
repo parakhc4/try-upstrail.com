@@ -55,8 +55,10 @@ export default function App() {
       {/* ── NAV ─────────────────────────────────────────────────── */}
       <nav style={{ backgroundColor: 'rgba(247,244,239,0.92)', borderBottom: '1px solid #D8D3CB' }}
         className="fixed top-0 w-full z-50 backdrop-blur-sm py-3 px-5 md:px-14 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <UpstrailMark />
+        <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center rounded" style={{ backgroundColor: '#000', padding: '5px 6px' }}>
+            <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+          </div>
           <span className="text-xs font-black tracking-[0.2em] uppercase" style={{ color: '#0F0F0F' }}>Upstrail</span>
         </div>
         <div className="hidden md:flex gap-10">
@@ -117,31 +119,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── STATS BAR ───────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#0F0F0F' }}
-        className="py-8 md:py-10 px-5 md:px-14">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4"
-          style={{ borderLeft: '1px solid #2a2a2a' }}>
-          {[
-            { label: 'OTIF Rate',      value: '96.4%',  note: 'Tier-1 Deployment' },
-            { label: 'Fill Rate',      value: '98.1%',  note: '90-day avg' },
-            { label: 'Total Spend',    value: '₹14.2M', note: 'Q3 Horizon' },
-            { label: 'Solve Time',     value: '4.2s',   note: 'Optimal convergence' },
-          ].map((s) => (
-            <div key={s.label} className="px-5 md:px-10 py-5"
-              style={{ borderRight: '1px solid #2a2a2a' }}>
-              <div className="text-[9px] font-black tracking-[0.2em] uppercase mb-2" style={{ color: '#555' }}>
-                {s.label}
-              </div>
-              <div className="font-mono font-bold tabular-nums leading-none mb-1.5"
-                style={{ fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: '#F7F4EF' }}>
-                {s.value}
-              </div>
-              <div className="text-[9px] font-mono" style={{ color: '#555' }}>{s.note}</div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ── PLATFORM MOCKUP ─────────────────────────────────────── */}
       <section id="platform" className="py-16 md:py-20 px-5 md:px-14">
@@ -567,8 +544,10 @@ export default function App() {
       {/* ── FOOTER ──────────────────────────────────────────────── */}
       <footer className="py-6 md:py-8 px-5 md:px-14" style={{ borderTop: '1px solid #D8D3CB' }}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-3">
-            <UpstrailMark />
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center justify-center rounded" style={{ backgroundColor: '#000', padding: '5px 6px' }}>
+              <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+            </div>
             <span className="text-xs font-black tracking-[0.2em] uppercase">Upstrail</span>
           </div>
           <span className="text-xs" style={{ color: '#8A8478' }}>
