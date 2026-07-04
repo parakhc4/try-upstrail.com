@@ -70,7 +70,7 @@ export default function App() {
       <section className="pt-40 pb-16 px-8 md:px-14">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-10">
-            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#E35B2B' }}></span>
+            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#208DFC' }}></span>
             <span className="text-[10px] font-black tracking-[0.25em] uppercase" style={{ color: '#8A8478' }}>
               Advanced Planning &amp; Scheduling
             </span>
@@ -80,7 +80,7 @@ export default function App() {
             style={{ fontSize: 'clamp(3.2rem, 9.5vw, 8.5rem)', lineHeight: 0.88 }}>
             The backbone<br />
             of your<br />
-            <span style={{ color: '#E35B2B' }}>bottomline.</span>
+            <span style={{ color: '#208DFC' }}>bottomline.</span>
           </h1>
 
           <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-start"
@@ -88,13 +88,13 @@ export default function App() {
             <p className="text-base md:text-lg leading-relaxed max-w-xl" style={{ color: '#8A8478' }}>
               Upstrail bridges deep supply chain expertise with cutting-edge software engineering.
               We deliver out-of-the-box optimization engines and fulfillment dashboards built
-              for rapid deployment — intelligent decisions with minimal implementation effort.
+              for rapid deployment, intelligent decisions with minimal implementation effort.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
               className="shrink-0 flex items-center gap-3 text-sm font-black tracking-wide px-7 py-4 transition-colors duration-200"
               style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor='#E35B2B'}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor='#208DFC'}
               onMouseLeave={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
             >
               Request a Demo <ArrowRight size={15} />
@@ -153,93 +153,121 @@ export default function App() {
               </span>
             </div>
 
-            {/* Dashboard body */}
-            <div className="p-6 md:p-8 flex flex-col gap-6" style={{ backgroundColor: '#F0EDE7' }}>
+            {/* Dashboard body — matches app-studio look */}
+            <div className="p-6 md:p-8 flex flex-col gap-6" style={{ backgroundColor: '#eef1f5' }}>
               <div className="flex justify-between items-center">
-                <h3 className="text-xl font-black tracking-tight uppercase" style={{ color: '#0F0F0F' }}>
+                <h3 className="text-sm font-black tracking-[0.15em] uppercase" style={{ color: '#1b2330' }}>
                   Executive Summary
                 </h3>
-                <div className="text-xs font-mono px-4 py-2"
-                  style={{ border: '1px solid #D8D3CB', backgroundColor: '#F7F4EF', color: '#8A8478' }}>
+                <div className="text-xs font-mono px-3 py-1.5 rounded"
+                  style={{ border: '1px solid #dde2e9', backgroundColor: '#ffffff', color: '#67707e' }}>
                   Q3 Planning Horizon
                 </div>
               </div>
 
               {/* KPI row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { icon: <Target size={16} style={{ color: '#6366f1' }} />, label: 'OTIF Rate',         val: '96.4%', tag: 'Healthy',  tagColor: '#1f7a55', tagBg: '#e6f4ee' },
                   { icon: <IndianRupee size={16} style={{ color: '#1f7a55' }} />, label: 'Est. Total Spend', val: '₹14.2M', tag: 'Budget',  tagColor: '#1f7a55', tagBg: '#e6f4ee' },
                   { icon: <CheckSquare size={16} style={{ color: '#2563eb' }} />, label: 'Volume Fill Rate', val: '98.1%', tag: null,      tagColor: '', tagBg: '' },
                   { icon: <AlertTriangle size={16} style={{ color: '#c23a2e' }} />, label: 'Total Shortages', val: '1,204', tag: null,      tagColor: '', tagBg: '' },
                 ].map((kpi) => (
-                  <div key={kpi.label} className="p-5"
-                    style={{ backgroundColor: '#F7F4EF', border: '1px solid #D8D3CB' }}>
+                  <div key={kpi.label} className="p-5 rounded-md"
+                    style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
                     <div className="flex justify-between items-start mb-4">
-                      <div className="p-2" style={{ backgroundColor: '#F0EDE7', border: '1px solid #D8D3CB' }}>
+                      <div className="p-2 rounded" style={{ backgroundColor: '#f5f7fa', border: '1px solid #dde2e9' }}>
                         {kpi.icon}
                       </div>
                       {kpi.tag && (
-                        <span className="text-[9px] font-black tracking-wider uppercase px-2 py-0.5"
-                          style={{ backgroundColor: kpi.tagBg, color: kpi.tagColor, border: `1px solid ${kpi.tagColor}30` }}>
+                        <span className="text-[9px] font-black tracking-wider uppercase px-2 py-0.5 rounded"
+                          style={{ backgroundColor: kpi.tagBg, color: kpi.tagColor }}>
                           {kpi.tag}
                         </span>
                       )}
                     </div>
-                    <p className="text-[9px] font-black tracking-[0.15em] uppercase mb-1" style={{ color: '#8A8478' }}>
+                    <p className="text-[9px] font-black tracking-[0.15em] uppercase mb-1" style={{ color: '#67707e' }}>
                       {kpi.label}
                     </p>
-                    <h4 className="text-2xl font-black font-mono tabular-nums" style={{ color: '#0F0F0F' }}>
+                    <h4 className="text-2xl font-black tabular-nums" style={{ color: '#1b2330', fontFamily: 'var(--font-mono)' }}>
                       {kpi.val}
                     </h4>
                   </div>
                 ))}
               </div>
 
+              {/* Fake area chart */}
+              <div className="p-5 rounded-md" style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                <p className="text-[9px] font-black tracking-[0.2em] uppercase mb-4" style={{ color: '#67707e' }}>
+                  Cumulative Supply vs Demand
+                </p>
+                <svg viewBox="0 0 560 120" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100px' }}>
+                  {/* grid */}
+                  {[30,60,90].map(y => (
+                    <line key={y} x1="0" y1={y} x2="560" y2={y} stroke="#f1f5f9" strokeWidth="1"/>
+                  ))}
+                  {/* Demand area */}
+                  <path d="M0,95 L80,85 L160,70 L240,65 L320,55 L400,48 L480,42 L560,38 L560,120 L0,120 Z"
+                    fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5"/>
+                  {/* Supply area */}
+                  <path d="M0,100 L80,88 L160,72 L240,58 L320,45 L400,35 L480,25 L560,18 L560,120 L0,120 Z"
+                    fill="#eef2ff" stroke="#6366f1" strokeWidth="2"/>
+                  {/* x-axis labels */}
+                  {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'].map((m,i) => (
+                    <text key={m} x={i*80+4} y={117} fontSize="8" fill="#94a3b8">{m}</text>
+                  ))}
+                  {/* legend */}
+                  <circle cx="440" cy="10" r="4" fill="#6366f1"/>
+                  <text x="448" y="14" fontSize="9" fill="#67707e">Supply</text>
+                  <circle cx="490" cy="10" r="4" fill="#cbd5e1"/>
+                  <text x="498" y="14" fontSize="9" fill="#67707e">Demand</text>
+                </svg>
+              </div>
+
               {/* Table */}
-              <div style={{ backgroundColor: '#F7F4EF', border: '1px solid #D8D3CB', overflow: 'hidden' }}>
-                <div className="px-4 py-3" style={{ borderBottom: '1px solid #D8D3CB', backgroundColor: '#F0EDE7' }}>
-                  <span className="text-[9px] font-black tracking-[0.2em] uppercase" style={{ color: '#8A8478' }}>
+              <div className="rounded-md overflow-hidden" style={{ backgroundColor: '#ffffff', border: '1px solid #dde2e9', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                <div className="px-5 py-3" style={{ borderBottom: '1px solid #dde2e9', backgroundColor: '#f5f7fa' }}>
+                  <span className="text-[9px] font-black tracking-[0.2em] uppercase" style={{ color: '#67707e' }}>
                     Detailed Order Fulfillment
                   </span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse">
-                    <thead style={{ backgroundColor: '#F0EDE7', borderBottom: '1px solid #D8D3CB' }}>
+                    <thead style={{ backgroundColor: '#f5f7fa', borderBottom: '1px solid #dde2e9' }}>
                       <tr>
                         {['Order ID','Item','Due Date','Status','Outcome','Reason / Trace'].map(h => (
                           <th key={h} className="px-5 py-3 text-[9px] font-black tracking-widest uppercase"
-                            style={{ color: '#8A8478' }}>{h}</th>
+                            style={{ color: '#67707e' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
-                    <tbody style={{ fontFamily: 'var(--font-mono)' }}>
+                    <tbody>
                       {[
                         { id:'ORD-8921', item:'Brake Caliper Assembly',  date:'2026-03-15', fill:100, filled:500, total:500, status:'Fulfilled', statusColor:'#1f7a55', statusBg:'#e6f4ee', barColor:'#1f7a55', reason:'Planned Successfully' },
                         { id:'ORD-8922', item:'Transmission Housing',     date:'2026-03-16', fill:40,  filled:120, total:300, status:'Partial',   statusColor:'#92680a', statusBg:'#fef3cd', barColor:'#f59e0b', reason:'Insufficient Material' },
-                        { id:'ORD-8923', item:'Steering Column',          date:'2026-03-16', fill:0,   filled:0,   total:150, status:'Shortage',  statusColor:'#c23a2e', statusBg:'#fde8e7', barColor:'#c23a2e', reason:'Line Down – Maintenance' },
+                        { id:'ORD-8923', item:'Steering Column',          date:'2026-03-16', fill:0,   filled:0,   total:150, status:'Shortage',  statusColor:'#c23a2e', statusBg:'#fde8e7', barColor:'#c23a2e', reason:'Line Down - Maintenance' },
                       ].map(row => (
-                        <tr key={row.id} style={{ borderBottom: '1px solid #EAE7E1' }}>
-                          <td className="px-5 py-4 font-black" style={{ color: '#0F0F0F' }}>{row.id}</td>
-                          <td className="px-5 py-4 font-sans font-bold" style={{ color: '#0F0F0F' }}>{row.item}</td>
-                          <td className="px-5 py-4" style={{ color: '#8A8478' }}>{row.date}</td>
+                        <tr key={row.id} style={{ borderBottom: '1px solid #dde2e9' }}>
+                          <td className="px-5 py-4 font-bold text-xs" style={{ color: '#1b2330', fontFamily: 'var(--font-mono)' }}>{row.id}</td>
+                          <td className="px-5 py-4 font-semibold text-xs" style={{ color: '#1b2330' }}>{row.item}</td>
+                          <td className="px-5 py-4 text-xs" style={{ color: '#67707e' }}>{row.date}</td>
                           <td className="px-5 py-4">
                             <div className="flex flex-col gap-1">
-                              <div className="flex justify-between text-[9px] font-black" style={{ color: '#8A8478' }}>
+                              <div className="flex justify-between text-[9px] font-bold" style={{ color: '#67707e' }}>
                                 <span>{row.filled}</span><span>{row.total}</span>
                               </div>
-                              <div className="h-1.5 w-full" style={{ backgroundColor: '#EAE7E1' }}>
-                                <div className="h-full" style={{ width: `${row.fill}%`, backgroundColor: row.barColor }}></div>
+                              <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: '#dde2e9' }}>
+                                <div className="h-full rounded-full" style={{ width: `${row.fill}%`, backgroundColor: row.barColor }}></div>
                               </div>
                             </div>
                           </td>
-                          <td className="px-5 py-4 text-center">
-                            <span className="px-2 py-1 text-[9px] font-black tracking-wider uppercase"
-                              style={{ backgroundColor: row.statusBg, color: row.statusColor, border: `1px solid ${row.statusColor}30` }}>
+                          <td className="px-5 py-4">
+                            <span className="px-2 py-1 text-[9px] font-bold tracking-wider uppercase rounded"
+                              style={{ backgroundColor: row.statusBg, color: row.statusColor }}>
                               {row.status}
                             </span>
                           </td>
-                          <td className="px-5 py-4 text-[10px]" style={{ color: '#8A8478' }}>{row.reason}</td>
+                          <td className="px-5 py-4 text-[10px]" style={{ color: '#67707e' }}>{row.reason}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -319,7 +347,7 @@ export default function App() {
             <div>
               <h2 className="font-black uppercase tracking-tighter leading-none mb-8"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 0.9 }}>
-                Proven in<br />Automotive.
+                OTIF improved<br />by 6% for clients.
               </h2>
               <p className="text-base leading-relaxed mb-10" style={{ color: '#8A8478' }}>
                 We partnered with a Tier-1 manufacturing enterprise to deploy a full-scale
@@ -333,7 +361,7 @@ export default function App() {
                   'Splits POs across suppliers while enforcing capacity limits',
                 ].map(item => (
                   <li key={item} className="flex items-start gap-4 text-sm" style={{ color: '#8A8478' }}>
-                    <span className="font-mono font-black shrink-0 mt-0.5" style={{ color: '#E35B2B' }}>→</span>
+                    <span className="font-mono font-black shrink-0 mt-0.5" style={{ color: '#208DFC' }}>→</span>
                     {item}
                   </li>
                 ))}
@@ -394,9 +422,9 @@ export default function App() {
             <button
               onClick={() => setIsModalOpen(true)}
               className="flex items-center gap-3 text-sm font-black tracking-wide px-7 py-4 transition-colors duration-200"
-              style={{ backgroundColor: '#E35B2B', color: '#F7F4EF' }}
+              style={{ backgroundColor: '#208DFC', color: '#F7F4EF' }}
               onMouseEnter={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor='#E35B2B'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor='#208DFC'}
             >
               Request Demo <ArrowRight size={15} />
             </button>
@@ -504,7 +532,7 @@ export default function App() {
                       disabled={formStatus === 'submitting'}
                       className="w-full py-3.5 text-sm font-black tracking-widest uppercase transition-colors duration-200 disabled:opacity-50 flex justify-center items-center gap-2"
                       style={{ backgroundColor: '#0F0F0F', color: '#F7F4EF' }}
-                      onMouseEnter={e => { if (formStatus !== 'submitting') e.currentTarget.style.backgroundColor='#E35B2B'; }}
+                      onMouseEnter={e => { if (formStatus !== 'submitting') e.currentTarget.style.backgroundColor='#208DFC'; }}
                       onMouseLeave={e => e.currentTarget.style.backgroundColor='#0F0F0F'}
                     >
                       {formStatus === 'submitting' ? 'Sending...' : 'Request Demo'}
