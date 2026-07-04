@@ -56,9 +56,7 @@ export default function App() {
       <nav style={{ backgroundColor: 'rgba(247,244,239,0.92)', borderBottom: '1px solid #D8D3CB' }}
         className="fixed top-0 w-full z-50 backdrop-blur-sm py-3 px-5 md:px-14 flex justify-between items-center">
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center justify-center rounded" style={{ backgroundColor: '#000', padding: '5px 6px' }}>
-            <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-          </div>
+          <img src="/upstraillogo.png" alt="Upstrail" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
           <span className="text-xs font-black tracking-[0.2em] uppercase" style={{ color: '#0F0F0F' }}>Upstrail</span>
         </div>
         <div className="hidden md:flex gap-10">
