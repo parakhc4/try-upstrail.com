@@ -1,5 +1,10 @@
+import { useState } from 'react';
 import Blueprint from '../components/Blueprint';
 import SectionHead from '../components/SectionHead';
+
+/* The first four rows carry the argument; the rest are corroboration, so they
+   stay one click away rather than making the section a wall of prose. */
+const VISIBLE_ROWS = 4;
 
 const ROWS = [
   {
@@ -60,6 +65,9 @@ const STATS = [
 ];
 
 export default function ErpGap() {
+  const [showAll, setShowAll] = useState(false);
+  const rows = showAll ? ROWS : ROWS.slice(0, VISIBLE_ROWS);
+
   return (
     <section id="gap" className="u-section">
       <div className="u-shell u-band">
@@ -82,8 +90,8 @@ export default function ErpGap() {
                   <th style={{ width: '37%' }}>So the planner does this instead</th>
                 </tr>
               </thead>
-              <tbody>
-                {ROWS.map((row) => (
+              <tbody id="gap-rows">
+                {rows.map((row) => (
                   <tr key={row.question}>
                     <td className="u-gap-q">{row.question}</td>
                     <td className="u-gap-erp">{row.erp}</td>
@@ -93,6 +101,19 @@ export default function ErpGap() {
               </tbody>
             </table>
           </div>
+
+          <button
+            type="button"
+            className="u-table-more"
+            aria-expanded={showAll}
+            aria-controls="gap-rows"
+            onClick={() => setShowAll((v) => !v)}
+          >
+            {showAll
+              ? 'Show fewer'
+              : `Show the other ${ROWS.length - VISIBLE_ROWS} questions`}
+            <span className="u-caret" aria-hidden="true">▾</span>
+          </button>
         </Blueprint>
 
         <div className="u-grid-3" style={{ marginTop: 34 }}>

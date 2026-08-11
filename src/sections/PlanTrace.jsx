@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import AppPanel from '../components/AppPanel';
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -323,7 +323,32 @@ const STEPS = [
   },
 ];
 
+/**
+ * The five steps as a single-open accordion hung off the thread: every title
+ * stays visible so the whole story is scannable, but only the step you are on
+ * renders its screen. The thread reads as progress — solid down to the step
+ * you have reached, faint below it.
+ */
 export default function PlanTrace() {
+  const [active, setActive] = useState(0);
+  const listRef = useRef(null);
+
+  const openStep = (i, { moveFocus = false } = {}) => {
+    setActive(i);
+    // The header button is reconciled in place rather than remounted, so it is
+    // safe to focus straight away; focusing also scrolls it into view, which
+    // is what we want after the previous step collapses.
+    if (moveFocus) listRef.current?.querySelectorAll('.u-trace-head')[i]?.focus();
+  };
+
+  // Standard accordion keys: arrows walk the headers, Home/End jump the ends.
+  const onKeyDown = (e, i) => {
+    const targets = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: STEPS.length - 1 };
+    if (!(e.key in targets)) return;
+    e.preventDefault();
+    openStep((targets[e.key] + STEPS.length) % STEPS.length, { moveFocus: true });
+  };
+
   return (
     <div className="u-trace-block">
       <div className="u-trace-intro">
@@ -338,23 +363,67 @@ export default function PlanTrace() {
         </p>
       </div>
 
-      <div className="u-trace">
-        {STEPS.map((step, i) => (
-          <section className="u-trace-step" key={step.title}>
-            <div className="u-trace-rail" aria-hidden="true">
-              <span className="u-trace-node">{String(i + 1).padStart(2, '0')}</span>
-            </div>
-            <div className="u-trace-content">
-              <div className="u-trace-head">
-                <h4 className="u-trace-title">{step.title}</h4>
-                <span className="u-trace-rule" aria-hidden="true" />
-                <span className="u-trace-q">{step.question}</span>
+      <div className="u-trace" ref={listRef}>
+        {STEPS.map((step, i) => {
+          const isOpen = i === active;
+          const next = STEPS[i + 1];
+          return (
+            <section
+              key={step.title}
+              className={`u-trace-step${isOpen ? ' is-open' : ''}${i < active ? ' is-past' : ''}`}
+            >
+              <div className="u-trace-rail" aria-hidden="true">
+                <span className="u-trace-node">{String(i + 1).padStart(2, '0')}</span>
               </div>
-              <p className="u-trace-copy">{step.copy}</p>
-              {step.panel}
-            </div>
-          </section>
-        ))}
+
+              <div className="u-trace-content">
+                <h4 className="u-trace-title-wrap">
+                  <button
+                    type="button"
+                    className="u-trace-head"
+                    id={`trace-head-${i}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`trace-body-${i}`}
+                    onClick={() => openStep(i)}
+                    onKeyDown={(e) => onKeyDown(e, i)}
+                  >
+                    <span className="u-trace-title">{step.title}</span>
+                    <span className="u-trace-rule" aria-hidden="true" />
+                    <span className="u-trace-q">{step.question}</span>
+                  </button>
+                </h4>
+
+                <div className="u-trace-body">
+                  <div
+                    className="u-trace-body-clip"
+                    id={`trace-body-${i}`}
+                    role="region"
+                    aria-labelledby={`trace-head-${i}`}
+                    inert={!isOpen}
+                  >
+                    <div className="u-trace-body-inner">
+                      <p className="u-trace-copy">{step.copy}</p>
+                      {step.panel}
+                      {next ? (
+                        <button
+                          type="button"
+                          className="btn btn-secondary u-trace-next"
+                          onClick={() => openStep(i + 1, { moveFocus: true })}
+                        >
+                          Next · {next.title} <span aria-hidden="true">→</span>
+                        </button>
+                      ) : (
+                        <a href="#demo" className="btn btn-secondary u-trace-next">
+                          See this for your plant <span aria-hidden="true">→</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       <p className="u-trace-close">

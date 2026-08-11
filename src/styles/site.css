@@ -163,7 +163,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 .u-step.is-active { background: color-mix(in srgb, var(--color-accent-400) 14%, transparent); }
 .u-step-body { display: flex; gap: 14px; align-items: baseline; }
 .u-step-num { font-family: ui-monospace, monospace; font-size: 11px; color: var(--color-accent-400); }
-.u-step-title { margin: 0 0 4px; font-size: 20px; text-transform: uppercase; }
+.u-step-disc { flex: 1; min-width: 0; }
+.u-step-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px; line-height: 1.12; text-transform: uppercase;
+}
 .u-step-copy { margin: 0; font-size: 14px; color: var(--color-accent-2-300); line-height: 1.5; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -279,6 +283,52 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 .u-phase-title { margin: 0 0 4px; font-size: 19px; text-transform: uppercase; }
 .u-phase-copy { margin: 0; font-size: 14px; color: var(--color-neutral-700); line-height: 1.5; }
 
+/* ── disclosure: a heading that keeps its detail folded away ─────────── */
+
+.u-disc-heading { margin: 0; }
+.u-disc-btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; padding: 0; background: none; border: 0; cursor: pointer;
+  font: inherit; color: inherit; text-align: left;
+}
+.u-disc-btn:hover { color: var(--color-accent-700); }
+/* The title line is only ~25px tall, so on touch the hit area is extended
+   past it with a pseudo-element rather than padding, which would push the
+   card layout around. Each card's own padding keeps neighbours clear. */
+@media (pointer: coarse) {
+  .u-disc-btn { position: relative; }
+  .u-disc-btn::after { content: ""; position: absolute; inset: -10px 0; }
+}
+.u-caret {
+  flex: none; font-size: 11px; line-height: 1;
+  color: var(--color-neutral-600); transition: transform .25s ease;
+}
+[aria-expanded="true"] .u-caret { transform: rotate(180deg); }
+
+.u-disc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+.u-disc.is-open .u-disc-body { grid-template-rows: 1fr; }
+.u-disc-clip { overflow: hidden; }
+.u-disc-inner { padding-top: 8px; }
+
+.u-on-dark .u-disc-btn:hover { color: var(--color-accent-300); }
+.u-on-dark .u-caret { color: var(--color-accent-400); }
+
+/* Reveals the rest of a long table from inside its own frame. */
+.u-table-more {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; padding: 11px; cursor: pointer;
+  background: none; border: 0; border-top: 1px solid var(--color-divider);
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+.u-table-more:hover { background: color-mix(in srgb, var(--color-accent) 9%, transparent); }
+.u-table-more .u-caret { color: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  .u-disc-body, .u-caret { transition: none; }
+}
+
 /* ── the trace: one order threaded through five screens ──────────────── */
 
 .u-trace-block {
@@ -295,45 +345,81 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 }
 
 /* The thread runs down the rail column, unbroken between steps, with each
-   step's numbered node sitting on it. */
+   step's numbered node sitting on it. It reads as progress: solid down to
+   the step you have reached, faint below. */
 .u-trace-step { display: grid; grid-template-columns: 26px 1fr; gap: 0 20px; }
 .u-trace-rail { position: relative; }
 .u-trace-rail::before {
   content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
   width: 1px; transform: translateX(-50%);
-  background: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  transition: background .3s ease;
 }
-.u-trace-step:first-child .u-trace-rail::before { top: 13px; }
-.u-trace-step:last-child .u-trace-rail::before { bottom: auto; height: 13px; }
+.u-trace-step.is-past .u-trace-rail::before,
+.u-trace-step.is-open .u-trace-rail::before { background: var(--color-accent); }
+.u-trace-step:first-child .u-trace-rail::before { top: 17px; }
+.u-trace-step:last-child .u-trace-rail::before { bottom: auto; height: 17px; }
+
 .u-trace-node {
-  position: absolute; top: 0; left: 0; width: 26px; height: 26px;
+  position: absolute; top: 4px; left: 0; width: 26px; height: 26px;
   display: grid; place-items: center;
-  background: var(--color-bg); border: 1px solid var(--color-accent);
+  background: var(--color-bg);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
   font-family: ui-monospace, monospace; font-size: 10px;
-  color: var(--color-accent-700); font-variant-numeric: tabular-nums;
+  color: var(--color-neutral-600); font-variant-numeric: tabular-nums;
+  transition: background .3s ease, border-color .3s ease, color .3s ease;
 }
-.u-trace-step:last-child .u-trace-node {
-  background: var(--color-accent); color: var(--color-bg);
+.u-trace-step.is-past .u-trace-node {
+  border-color: var(--color-accent); color: var(--color-accent-700);
 }
+.u-trace-step.is-open .u-trace-node {
+  background: var(--color-accent); border-color: var(--color-accent); color: var(--color-bg);
+}
+
 /* min-width:0 lets this grid item shrink below its content's min-content
    size, so the wide figures inside scroll in their own container rather
    than stretching the column past the viewport. */
-.u-trace-content { min-width: 0; padding-bottom: 34px; }
+.u-trace-content { min-width: 0; padding-bottom: 14px; }
 .u-trace-step:last-child .u-trace-content { padding-bottom: 0; }
 
+.u-trace-title-wrap { margin: 0; }
 .u-trace-head {
   display: flex; align-items: center; gap: 14px;
-  min-height: 26px; margin-bottom: 10px;
+  width: 100%; min-height: 26px; padding: 4px 0;
+  background: none; border: 0; cursor: pointer;
+  font: inherit; color: inherit; text-align: left;
 }
-.u-trace-title { margin: 0; font-size: 20px; text-transform: uppercase; white-space: nowrap; }
-.u-trace-rule { flex: 1; height: 1px; background: var(--color-divider); }
+.u-trace-head:hover .u-trace-title { color: var(--color-accent-700); }
+.u-trace-head:hover .u-trace-rule { background: color-mix(in srgb, var(--color-accent) 45%, transparent); }
+.u-trace-head:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.u-trace-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px; line-height: 1.12; text-transform: uppercase; white-space: nowrap;
+  transition: color .2s ease;
+}
+.u-trace-rule { flex: 1; height: 1px; background: var(--color-divider); transition: background .2s ease; }
 .u-trace-q {
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--color-neutral-600); white-space: nowrap;
 }
+
+/* Collapse by animating the grid row from 0fr to 1fr — the clip box carries
+   the padding the blueprint corner marks need, so overflow never eats them. */
+.u-trace-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
+.u-trace-step.is-open .u-trace-body { grid-template-rows: 1fr; }
+.u-trace-body-clip { overflow: hidden; }
+.u-trace-body-inner { padding: 8px 10px 20px; margin: 0 -10px; }
+
 .u-trace-copy {
   margin: 0 0 14px; font-size: 14px; line-height: 1.55;
   color: var(--color-neutral-700); max-width: 760px;
+}
+.u-trace-next { margin-top: 16px; letter-spacing: .04em; text-transform: uppercase; }
+
+@media (prefers-reduced-motion: reduce) {
+  .u-trace-body, .u-trace-node, .u-trace-rail::before, .u-trace-title, .u-trace-rule {
+    transition: none;
+  }
 }
 .u-trace-close {
   margin: 30px 0 0; font-size: 15px; line-height: 1.55;
@@ -442,7 +528,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--color-accent-700); margin-bottom: 6px;
 }
-.u-pack-title { margin: 0 0 8px; font-size: 22px; text-transform: uppercase; }
+.u-pack-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 22px; line-height: 1.12; text-transform: uppercase;
+}
 .u-pack-copy { margin: 0; font-size: 14px; color: var(--color-neutral-700); line-height: 1.5; }
 
 /* ── rollout gantt ───────────────────────────────────────────────────── */
@@ -571,8 +660,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   .u-trace-block { padding-top: 32px; }
   .u-trace-step { grid-template-columns: 22px 1fr; gap: 0 14px; }
   .u-trace-node { width: 22px; height: 22px; font-size: 9px; }
-  .u-trace-step:first-child .u-trace-rail::before { top: 11px; }
-  .u-trace-step:last-child .u-trace-rail::before { height: 11px; }
+  .u-trace-step:first-child .u-trace-rail::before { top: 15px; }
+  .u-trace-step:last-child .u-trace-rail::before { height: 15px; }
   .u-trace-head { min-height: 22px; }
-  .u-trace-content { padding-bottom: 28px; }
+  .u-trace-title { font-size: 18px; }
 }

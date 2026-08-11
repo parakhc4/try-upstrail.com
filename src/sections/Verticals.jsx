@@ -1,4 +1,5 @@
 import Blueprint from '../components/Blueprint';
+import Disclosure from '../components/Disclosure';
 import SectionHead from '../components/SectionHead';
 
 const PACKS = [
@@ -42,8 +43,9 @@ export default function Verticals() {
           {PACKS.map((pack, i) => (
             <Blueprint className="u-pack" key={pack.title}>
               <div className="u-pack-kicker">Pack {String(i + 1).padStart(2, '0')}</div>
-              <h4 className="u-pack-title">{pack.title}</h4>
-              <p className="u-pack-copy">{pack.copy}</p>
+              <Disclosure titleClassName="u-pack-title" summary={pack.title}>
+                <p className="u-pack-copy">{pack.copy}</p>
+              </Disclosure>
             </Blueprint>
           ))}
         </div>

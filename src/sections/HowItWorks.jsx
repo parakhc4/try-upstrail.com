@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Blueprint from '../components/Blueprint';
+import Disclosure from '../components/Disclosure';
 import SectionHead from '../components/SectionHead';
 
 /* Illustrative ERP column names — the mapper works from your schema and its
@@ -113,10 +114,14 @@ export default function HowItWorks() {
               >
                 <div className="u-step-body">
                   <span className="u-step-num">{String(i + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h4 className="u-step-title">{item.title}</h4>
+                  <Disclosure
+                    className="u-step-disc"
+                    titleClassName="u-step-title"
+                    summary={item.title}
+                    defaultOpen={i === 0}
+                  >
                     <p className="u-step-copy">{item.copy}</p>
-                  </div>
+                  </Disclosure>
                 </div>
               </Blueprint>
             ))}
