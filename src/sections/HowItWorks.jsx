@@ -70,7 +70,7 @@ export default function HowItWorks() {
 
   return (
     <section id="how" className="u-section u-section-dark">
-      <div className="u-shell u-band">
+      <div className="u-shell u-band-lg" data-reveal>
         <SectionHead kicker="02 / The bridge" title={<>It reads your<br />ERP as it is</>}>
           Most planning projects die in data mapping. Six months of consultants writing ETL against
           table names nobody documented, before anyone sees a plan. Our mapper reads your schema,

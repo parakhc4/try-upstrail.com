@@ -1,4 +1,5 @@
 import Blueprint from '../components/Blueprint';
+import ConstraintMatrix from '../components/diagrams/ConstraintMatrix';
 import Disclosure from '../components/Disclosure';
 import SectionHead from '../components/SectionHead';
 
@@ -31,24 +32,32 @@ const PACKS = [
 
 export default function Verticals() {
   return (
-    <section id="verticals" className="u-section">
-      <div className="u-shell u-band">
+    <section id="verticals" className="u-section u-section-tint">
+      <div className="u-shell u-band-sm" data-reveal>
         <SectionHead kicker="04 / Coverage" title={<>80% is already<br />built for you</>}>
           Each vertical ships as a pack: the planning model, the constraints that actually bind in
           that industry, and the reports a plant head in that industry asks for. Configuration is
           the remaining 20%: your routings, your calendars, your customer priorities.
         </SectionHead>
 
-        <div className="u-grid-3">
+        {/* The section's real point, as a grid: every vertical is a different
+            planning problem. The packs below carry the prose. */}
+        <Blueprint className="u-figure" style={{ marginBottom: 24 }}>
+          <ConstraintMatrix />
+        </Blueprint>
+
+        {/* One frame with hairline rules, not six — the six separate framed
+            cards were most of the visual noise on this screen. */}
+        <Blueprint className="u-packs">
           {PACKS.map((pack, i) => (
-            <Blueprint className="u-pack" key={pack.title}>
+            <div className="u-pack" key={pack.title}>
               <div className="u-pack-kicker">Pack {String(i + 1).padStart(2, '0')}</div>
               <Disclosure titleClassName="u-pack-title" summary={pack.title}>
                 <p className="u-pack-copy">{pack.copy}</p>
               </Disclosure>
-            </Blueprint>
+            </div>
           ))}
-        </div>
+        </Blueprint>
 
         <p className="u-footnote">
           Working on Microsoft Dynamics, Zoho, Odoo or an in-house system. Anything with a readable

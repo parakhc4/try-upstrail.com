@@ -16,7 +16,7 @@ const PHASES = [
 export default function Rollout() {
   return (
     <section id="rollout" className="u-section">
-      <div className="u-shell u-band">
+      <div className="u-shell u-band" data-reveal>
         <SectionHead kicker="05 / Rollout" title={<>Twelve weeks,<br />not two years</>}>
           A typical enterprise APS rollout is measured in years and paid for in consultant-days.
           Ours is measured in weeks, because the vertical pack is already built and the mapping is

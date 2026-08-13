@@ -1,3 +1,4 @@
+import useScrollReveal from './hooks/useScrollReveal';
 import SiteHeader from './sections/SiteHeader';
 import Hero from './sections/Hero';
 import ErpGap from './sections/ErpGap';
@@ -10,6 +11,8 @@ import Demo from './sections/Demo';
 import SiteFooter from './sections/SiteFooter';
 
 export default function App() {
+  useScrollReveal();
+
   return (
     <div className="u-page">
       <SiteHeader />

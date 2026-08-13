@@ -43,7 +43,7 @@ export default function Demo() {
 
   return (
     <section id="demo" className="u-section-dark">
-      <div className="u-shell u-band">
+      <div className="u-shell u-band-lg" data-reveal>
         <div className="u-demo-grid">
           <div>
             <h2 className="u-h2-xl">See the plan<br />for your plant</h2>

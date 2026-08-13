@@ -10,7 +10,7 @@ const SPEC = [
 export default function Hero() {
   return (
     <section className="u-section u-grid-bg">
-      <div className="u-shell u-band-hero">
+      <div className="u-shell u-band-hero" data-reveal="eager">
         <div className="u-eyebrow">
           <span className="u-eyebrow-dot" aria-hidden="true" />
           <span className="u-eyebrow-text">For manufacturers still planning in Excel</span>

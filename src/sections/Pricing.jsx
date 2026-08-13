@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import Blueprint from '../components/Blueprint';
+import Positioning from '../components/diagrams/Positioning';
 import SectionHead from '../components/SectionHead';
 
 const INCLUDED = [
@@ -18,8 +18,8 @@ const ALTERNATIVES = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="u-section">
-      <div className="u-shell u-band">
+    <section id="pricing" className="u-section u-section-tint">
+      <div className="u-shell u-band" data-reveal>
         <SectionHead kicker="06 / Price" title={<>Built to be<br />affordable</>}>
           The good planning tools were priced for companies a hundred times your size, and the
           affordable ones cannot be bent to fit your process. Upstrail is an annual subscription per
@@ -46,16 +46,11 @@ export default function Pricing() {
             </div>
           </Blueprint>
 
-          <Blueprint className="u-price">
+          {/* The comparison as a position, not a list of four sentences. */}
+          <Blueprint className="u-figure">
             <div className="u-plate-label">What you are comparing against</div>
-            <div className="u-compare">
-              {ALTERNATIVES.map((option, i) => (
-                <Fragment key={option.name}>
-                  {i > 0 && <div className="u-compare-rule" />}
-                  <span className="u-compare-name">{option.name}</span>
-                  <span className="u-compare-val">{option.cost}</span>
-                </Fragment>
-              ))}
+            <div className="u-scroll-x">
+              <Positioning />
             </div>
           </Blueprint>
         </div>

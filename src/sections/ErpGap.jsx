@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Blueprint from '../components/Blueprint';
+import RecordVsPlan from '../components/diagrams/RecordVsPlan';
 import SectionHead from '../components/SectionHead';
 
 /* The first four rows carry the argument; the rest are corroboration, so they
@@ -69,14 +70,26 @@ export default function ErpGap() {
   const rows = showAll ? ROWS : ROWS.slice(0, VISIBLE_ROWS);
 
   return (
-    <section id="gap" className="u-section">
-      <div className="u-shell u-band">
+    <section id="gap" className="u-section u-section-tint">
+      <div className="u-shell u-band" data-reveal>
         <SectionHead kicker="01 / The gap" title={<>Why your ERP<br />isn&apos;t enough</>}>
           Nothing is wrong with your ERP. It was built to record transactions: orders, receipts,
           issues, invoices. Planning is a different problem: it is a forecast plus a set of
           constraints, solved forward in time. MRP inside an ERP does the arithmetic but not the
           decision, so the decision falls back to a person and an Excel file.
         </SectionHead>
+
+        {/* The claim, drawn once, before the table argues it in prose. */}
+        <Blueprint className="u-figure u-plate-soft" style={{ marginBottom: 34 }}>
+          <div className="u-scroll-x">
+            <RecordVsPlan />
+          </div>
+          <p className="u-fig-cap">
+            Everything your ERP holds sits to the left of today. Every decision you are paid to make
+            sits to the right of it, and MRP crosses that line with one assumption: infinite
+            capacity.
+          </p>
+        </Blueprint>
 
         {/* The scroll container sits inside the frame so the registration
             marks are never clipped by it. */}

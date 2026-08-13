@@ -80,7 +80,7 @@ const PHASES = [
 export default function Explain() {
   return (
     <section id="explain" className="u-section">
-      <div className="u-shell u-band">
+      <div className="u-shell u-band" data-reveal>
         <SectionHead kicker="03 / Adoption" title={<>The plan<br />explains itself</>}>
           Planning software usually fails at change management, not at maths. A planner will not act
           on a number they cannot defend to the plant head. So every output carries its reasoning,
