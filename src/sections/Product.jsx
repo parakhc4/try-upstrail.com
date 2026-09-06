@@ -1,8 +1,10 @@
+import Fold from '../components/Fold';
 import SectionHead from '../components/SectionHead';
 import Screen from '../components/Screen';
 import { SCREENS } from '../screens';
 
-const SHOWN = [SCREENS.summary, SCREENS.gantt, SCREENS.fulfilment, SCREENS.trace];
+const FIRST = SCREENS.summary;
+const REST = [SCREENS.gantt, SCREENS.fulfilment, SCREENS.trace];
 
 export default function Product() {
   return (
@@ -15,7 +17,10 @@ export default function Product() {
         </SectionHead>
 
         <div className="u-screens">
-          {SHOWN.map((s) => <Screen key={s.src} {...s} />)}
+          <Screen {...FIRST} />
+          <Fold label="Show three more screens" hideLabel="Show fewer screens" bodyClassName="u-screens">
+            {REST.map((s) => <Screen key={s.src} {...s} />)}
+          </Fold>
         </div>
         <p className="u-screens-note">Demo workspace shown. Machine and part names are illustrative.</p>
       </div>

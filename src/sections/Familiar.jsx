@@ -1,4 +1,5 @@
 import Blueprint from '../components/Blueprint';
+import Fold from '../components/Fold';
 import SectionHead from '../components/SectionHead';
 
 /* A real plant, anonymised. Every line on the left is something they told
@@ -30,6 +31,21 @@ const ROWS = [
   },
 ];
 
+function Row(row) {
+  return (
+    <div className="u-compare-row" key={row.today.slice(0, 30)}>
+      <div className="u-compare-cell">
+        <span className="u-compare-tag">Today</span>
+        {row.today}
+      </div>
+      <div className="u-compare-cell">
+        <span className="u-compare-tag">With Upstrail</span>
+        {row.with}
+      </div>
+    </div>
+  );
+}
+
 export default function Familiar() {
   return (
     <section id="familiar" className="u-section u-section-tint">
@@ -45,18 +61,10 @@ export default function Familiar() {
             <span>Today</span>
             <span>With Upstrail</span>
           </div>
-          {ROWS.map((row) => (
-            <div className="u-compare-row" key={row.today.slice(0, 30)}>
-              <div className="u-compare-cell">
-                <span className="u-compare-tag">Today</span>
-                {row.today}
-              </div>
-              <div className="u-compare-cell">
-                <span className="u-compare-tag">With Upstrail</span>
-                {row.with}
-              </div>
-            </div>
-          ))}
+          {ROWS.slice(0, 2).map(Row)}
+          <Fold label="Show the rest of their month" hideLabel="Show less">
+            {ROWS.slice(2).map(Row)}
+          </Fold>
         </Blueprint>
       </div>
     </section>

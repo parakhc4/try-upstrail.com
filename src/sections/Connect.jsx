@@ -1,3 +1,4 @@
+import Fold from '../components/Fold';
 import SectionHead from '../components/SectionHead';
 import ConnectFlow from '../components/diagrams/ConnectFlow';
 
@@ -11,12 +12,13 @@ export default function Connect() {
           plan. Tally, Busy, Zoho, Dynamics, SAP Business One, or a system your own team built.
         </SectionHead>
 
-        <ConnectFlow />
-
-        <p className="u-fig-cap">
-          Reads on the left, plans on the right. If part of your data lives in Excel rather than
-          the ERP, we read those sheets the same way.
-        </p>
+        <Fold label="See how it connects" hideLabel="Hide the diagram">
+          <ConnectFlow />
+          <p className="u-fig-cap">
+            Reads on the left, plans on the right. If part of your data lives in Excel rather than
+            the ERP, we read those sheets the same way.
+          </p>
+        </Fold>
       </div>
     </section>
   );

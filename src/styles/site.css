@@ -407,3 +407,27 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   .u-flow-arrow { width: auto; flex-direction: row; justify-content: flex-start; gap: 10px; padding: 4px 6px; }
   .u-flow-arrow-svg { transform: rotate(90deg); width: 28px; }
 }
+
+/* Folds: cards that open on tap, and the long tail of a list behind a button */
+.u-cell-btn { min-height: 40px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; width: 100%;
+  padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.u-fold-plus { flex: none; font-weight: 400; font-size: 24px; line-height: 1; color: var(--color-accent); transition: transform .2s ease; }
+.u-cell-fold.is-open .u-fold-plus, .u-fold-btn[aria-expanded="true"] .u-fold-plus { transform: rotate(45deg); }
+.u-cell-fold .u-cell-title { margin-bottom: 0; }
+.u-cell-body { margin-top: 10px; }
+.u-cell-body[hidden] { display: none !important; }
+.u-fold-body[hidden] { display: none !important; }
+.u-fold-btn {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 14px 8px 10px; min-height: 40px;
+  border: 1px solid var(--color-divider); background: color-mix(in srgb, #ffffff 55%, transparent);
+  font: inherit; font-size: 14.5px; font-weight: 500; color: var(--color-accent-700); cursor: pointer;
+}
+.u-fold-btn .u-fold-plus { font-size: 20px; }
+.u-fold-btn:hover { border-color: var(--color-accent); }
+.u-compare > .u-fold-btn, .u-ledger > .u-fold-btn { margin: 14px 20px 18px; }
+.u-fold-body > .u-compare-row:first-child .u-compare-cell, .u-fold-body > .u-ledger-row:first-child { border-top: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); }
+.u-screens > .u-fold-btn { justify-self: start; margin-top: 0; }
+.u-fold-gap { margin-top: 30px; }
+.u-fold-body:not([hidden]) + .u-fold-btn { margin-top: 18px; }

@@ -1,4 +1,5 @@
 import Blueprint from '../components/Blueprint';
+import Cell from '../components/Cell';
 import SectionHead from '../components/SectionHead';
 
 const STEPS = [
@@ -30,11 +31,9 @@ export default function HowItStarts() {
 
         <Blueprint className="u-cells">
           {STEPS.map((s, i) => (
-            <div className="u-cell" key={s.title}>
-              <div className="u-cell-num">Step {i + 1}: {s.when}</div>
-              <h3 className="u-cell-title">{s.title}</h3>
+            <Cell key={s.title} num={`Step ${i + 1}: ${s.when}`} title={s.title}>
               <p className="u-cell-copy">{s.copy}</p>
-            </div>
+            </Cell>
           ))}
         </Blueprint>
       </div>

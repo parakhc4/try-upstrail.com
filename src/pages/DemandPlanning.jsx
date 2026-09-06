@@ -1,5 +1,7 @@
 import PageShell from '../components/PageShell';
 import Blueprint from '../components/Blueprint';
+import Cell from '../components/Cell';
+import Fold from '../components/Fold';
 import SectionHead from '../components/SectionHead';
 import Screen from '../components/Screen';
 import Demo from '../sections/Demo';
@@ -81,10 +83,9 @@ export default function DemandPlanning() {
 
           <Blueprint className="u-cells">
             {THINGS.map((t) => (
-              <div className="u-cell" key={t.title}>
-                <h3 className="u-cell-title">{t.title}</h3>
+              <Cell key={t.title} title={t.title}>
                 <p className="u-cell-copy">{t.copy}</p>
-              </div>
+              </Cell>
             ))}
           </Blueprint>
         </div>
@@ -117,13 +118,13 @@ export default function DemandPlanning() {
             second one, and tells you the day you are about to be late.
           </SectionHead>
           <LeadTimes />
-          <div className="u-screens" style={{ marginTop: 30 }}>
+          <Fold label="See the fulfilment screen" hideLabel="Hide the screen" bodyClassName="u-screens u-fold-gap">
             <Screen {...SCREENS.fulfilment} />
-          </div>
-          <p className="u-screens-note">
-            What the material plan is for: every customer order, and whether the month will meet
-            it, known before the month starts. Demo workspace shown.
-          </p>
+            <p className="u-screens-note" style={{ marginTop: 0 }}>
+              What the material plan is for: every customer order, and whether the month will meet
+              it, known before the month starts. Demo workspace shown.
+            </p>
+          </Fold>
         </div>
       </section>
 
@@ -136,11 +137,13 @@ export default function DemandPlanning() {
             share is drifting. Add an alternate supplier and it plans with that one too.
           </SectionHead>
 
-          <Screen {...SCREENS.inventory} />
-          <p className="u-screens-note">
-            From the precision machining plant that runs it today. The purchase plan at the bottom
-            has the same blank on two suppliers, in the split they agreed. Demo workspace shown.
-          </p>
+          <Fold label="See the purchase plan" hideLabel="Hide the screen" bodyClassName="u-screens">
+            <Screen {...SCREENS.inventory} />
+            <p className="u-screens-note" style={{ marginTop: 0 }}>
+              From the precision machining plant that runs it today. The purchase plan at the bottom
+              has the same blank on two suppliers, in the split they agreed. Demo workspace shown.
+            </p>
+          </Fold>
         </div>
       </section>
 

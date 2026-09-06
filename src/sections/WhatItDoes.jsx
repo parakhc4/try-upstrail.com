@@ -1,4 +1,5 @@
 import Blueprint from '../components/Blueprint';
+import Cell from '../components/Cell';
 import SectionHead from '../components/SectionHead';
 import { SOLUTIONS } from '../nav';
 
@@ -32,11 +33,10 @@ export default function WhatItDoes() {
 
         <Blueprint className="u-cells">
           {THINGS.map((t) => (
-            <div className="u-cell" key={t.title}>
-              <h3 className="u-cell-title">{t.title}</h3>
+            <Cell key={t.title} title={t.title}>
               <p className="u-cell-copy">{t.copy}</p>
               <a className="u-cell-link" href={t.to.href}>More on {t.to.label.toLowerCase()}</a>
-            </div>
+            </Cell>
           ))}
         </Blueprint>
       </div>

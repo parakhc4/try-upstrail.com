@@ -1,5 +1,7 @@
 import PageShell from '../components/PageShell';
 import Blueprint from '../components/Blueprint';
+import Cell from '../components/Cell';
+import Fold from '../components/Fold';
 import SectionHead from '../components/SectionHead';
 import Screen from '../components/Screen';
 import Demo from '../sections/Demo';
@@ -40,6 +42,15 @@ const KNOWS = [
   ['Which operation can go outside', 'Coating, anodising, a machining shop down the road. When it leaves, when it is back, and what it costs.'],
   ['Which customer cannot slip', 'And which can, and by how much.'],
 ];
+
+function LedgerRow([term, desc]) {
+  return (
+    <div className="u-ledger-row" key={term}>
+      <span className="u-ledger-term">{term}</span>
+      <p className="u-ledger-desc">{desc}</p>
+    </div>
+  );
+}
 
 export default function ProductionPlanning() {
   return (
@@ -93,10 +104,9 @@ export default function ProductionPlanning() {
 
           <Blueprint className="u-cells">
             {THINGS.map((t) => (
-              <div className="u-cell" key={t.title}>
-                <h3 className="u-cell-title">{t.title}</h3>
+              <Cell key={t.title} title={t.title}>
                 <p className="u-cell-copy">{t.copy}</p>
-              </div>
+              </Cell>
             ))}
           </Blueprint>
         </div>
@@ -110,8 +120,10 @@ export default function ProductionPlanning() {
           </SectionHead>
           <div className="u-screens">
             <Screen {...SCREENS.gantt} />
-            <Screen {...SCREENS.production} />
-            <Screen {...SCREENS.calendar} />
+            <Fold label="Show two more screens" hideLabel="Show fewer screens" bodyClassName="u-screens">
+              <Screen {...SCREENS.production} />
+              <Screen {...SCREENS.calendar} />
+            </Fold>
           </div>
           <p className="u-screens-note">Demo workspace shown. Machine and part names are illustrative.</p>
         </div>
@@ -151,18 +163,15 @@ export default function ProductionPlanning() {
           </SectionHead>
 
           <Blueprint className="u-ledger">
-            {KNOWS.map(([term, desc]) => (
-              <div className="u-ledger-row" key={term}>
-                <span className="u-ledger-term">{term}</span>
-                <p className="u-ledger-desc">{desc}</p>
+            {KNOWS.slice(0, 3).map(LedgerRow)}
+            <Fold label={`Show all ${KNOWS.length}`} hideLabel="Show fewer">
+              {KNOWS.slice(3).map(LedgerRow)}
+              <div className="u-screens" style={{ padding: '20px 20px 8px' }}>
+                <Screen {...SCREENS.subcontract} />
+                <p className="u-screens-note" style={{ marginTop: 0 }}>Demo workspace shown.</p>
               </div>
-            ))}
+            </Fold>
           </Blueprint>
-
-          <div className="u-screens" style={{ marginTop: 30 }}>
-            <Screen {...SCREENS.subcontract} />
-          </div>
-          <p className="u-screens-note">Demo workspace shown.</p>
         </div>
       </section>
 
