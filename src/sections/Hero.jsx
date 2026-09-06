@@ -11,11 +11,6 @@ export default function Hero() {
   return (
     <section className="u-section">
       <div className="u-shell u-band-hero">
-        <div className="u-eyebrow">
-          <span className="u-eyebrow-dot" aria-hidden="true" />
-          <span className="u-eyebrow-text">For machining, moulding and casting plants in India</span>
-        </div>
-
         <div className="u-hero-grid">
           <div>
             <h1 className="u-h1">

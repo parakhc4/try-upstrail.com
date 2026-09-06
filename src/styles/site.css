@@ -101,6 +101,16 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 .u-mobile-group > .u-mobile-link:first-child, .u-mobile-group > .u-plate-label + .u-mobile-link { border-top: 0; }
 .u-mobile-link .u-nav-item-label { font-size: 16px; }
 .u-mobile-link.is-current .u-nav-item-label { color: var(--color-accent-700); }
+.u-mobile-toggle {
+  flex-direction: row; align-items: center; justify-content: space-between; width: 100%;
+  background: none; border-left: 0; border-right: 0; border-bottom: 0; cursor: pointer; font: inherit; text-align: left;
+}
+.u-mobile-toggle .u-caret { transition: transform .2s ease; color: var(--color-neutral-700); }
+.u-mobile-toggle .u-caret.is-open { transform: rotate(180deg); }
+.u-mobile-sub { display: flex; flex-direction: column; padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--color-accent) 30%, transparent); margin: 0 0 6px; }
+.u-mobile-sub[hidden] { display: none !important; }
+.u-mobile-sub > .u-mobile-link { padding: 10px 0; }
+.u-mobile-sub > .u-mobile-link:first-child { border-top: 0; }
 
 /* ── hero ────────────────────────────────────────────────────────────── */
 

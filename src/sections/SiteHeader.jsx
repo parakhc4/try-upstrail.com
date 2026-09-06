@@ -8,10 +8,12 @@ import { LINKS, SOLUTIONS } from '../nav';
 export default function SiteHeader({ page = 'home' }) {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const home = page === 'home';
+  // On a solution page the group starts open so the current page is visible.
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(!home);
   const dropRef = useRef(null);
   const headerRef = useRef(null);
 
-  const home = page === 'home';
   const linkTo = (hash) => (home ? hash : `/${hash}`);
 
   // Escape closes whichever is open; a press outside closes them too.
@@ -98,21 +100,29 @@ export default function SiteHeader({ page = 'home' }) {
 
       <div id="mobile-menu" className="u-mobile" hidden={!menuOpen}>
         <div className="u-mobile-group">
-          <div className="u-plate-label">Solutions</div>
-          {SOLUTIONS.map((s) => (
-            <a
-              key={s.key}
-              href={s.href}
-              className={`u-mobile-link${page === s.key ? ' is-current' : ''}`}
-              aria-current={page === s.key ? 'page' : undefined}
-              onClick={() => setMenuOpen(false)}
-            >
-              <span className="u-nav-item-label">{s.label}</span>
-              <span className="u-nav-item-blurb">{s.blurb}</span>
-            </a>
-          ))}
-        </div>
-        <div className="u-mobile-group">
+          <button
+            type="button"
+            className={`u-mobile-link u-mobile-toggle${home ? '' : ' is-current'}`}
+            aria-expanded={mobileSolutionsOpen}
+            aria-controls="mobile-solutions"
+            onClick={() => setMobileSolutionsOpen((v) => !v)}
+          >
+            <span className="u-nav-item-label">Solutions</span>
+            <span className={`u-caret${mobileSolutionsOpen ? ' is-open' : ''}`} aria-hidden="true">▾</span>
+          </button>
+          <div id="mobile-solutions" className="u-mobile-sub" hidden={!mobileSolutionsOpen}>
+            {SOLUTIONS.map((s) => (
+              <a
+                key={s.key}
+                href={s.href}
+                className={`u-mobile-link${page === s.key ? ' is-current' : ''}`}
+                aria-current={page === s.key ? 'page' : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="u-nav-item-label">{s.label}</span>
+              </a>
+            ))}
+          </div>
           {LINKS.map((l) => (
             <a
               key={l.hash}
