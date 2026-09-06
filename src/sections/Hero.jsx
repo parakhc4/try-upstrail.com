@@ -1,52 +1,49 @@
 import Blueprint from '../components/Blueprint';
 
 const SPEC = [
-  { key: 'Time to first live plan', value: '< 3 months' },
-  { key: 'Configured out of the box', value: '80%' },
-  { key: 'ERP schema mapping', value: 'AI, not ETL' },
-  { key: 'Planner up to speed', value: '2 to 3 weeks' },
+  { key: 'Monthly machine plan', value: 'Minutes' },
+  { key: 'Replan when the customer calls', value: 'One click' },
+  { key: 'Your ERP', value: 'Stays. We connect to it' },
+  { key: 'Running today at', value: 'A precision machining plant' },
 ];
 
 export default function Hero() {
   return (
-    <section className="u-section u-grid-bg">
-      <div className="u-shell u-band-hero" data-reveal="eager">
+    <section className="u-section">
+      <div className="u-shell u-band-hero">
         <div className="u-eyebrow">
           <span className="u-eyebrow-dot" aria-hidden="true" />
-          <span className="u-eyebrow-text">For manufacturers still planning in Excel</span>
+          <span className="u-eyebrow-text">For machining, moulding and casting plants in India</span>
         </div>
 
         <div className="u-hero-grid">
           <div>
             <h1 className="u-h1">
-              Your ERP records<br />what already happened.<br />
-              <span className="u-h1-accent">It does not plan<br />what happens next.</span>
+              Stop planning your factory <span className="u-h1-accent">in Excel.</span>
             </h1>
             <p className="u-hero-copy">
-              That is why the real plan still lives in one planner&apos;s Excel file. Upstrail is
-              advanced demand and supply planning built for mid-sized manufacturers. It reads your
-              existing ERP as it is, ships 80% configured for your vertical, and is running your
-              plan in under three months.
+              Upstrail connects to the ERP you already have and does the planning it cannot: your
+              monthly machine plan in minutes, and again when the customer calls. It knows your
+              machines, your routings and setup times, your inserts and moulds, your shifts and
+              your suppliers.
             </p>
             <div className="u-cta-row">
               <Blueprint as="a" href="#demo" className="btn btn-primary btn-lg">
-                Request a demo
+                Talk to us
               </Blueprint>
-              <a href="#gap" className="btn btn-secondary btn-lg">See the ERP gap</a>
+              <a href="#product" className="btn btn-secondary btn-lg">See the screens</a>
             </div>
           </div>
 
           <Blueprint className="u-spec u-plate">
-            <div className="u-plate-label">Spec sheet</div>
+            <div className="u-plate-label">In short</div>
             {SPEC.map((row) => (
               <div className="u-spec-row" key={row.key}>
                 <span className="u-spec-key">{row.key}</span>
                 <span className="u-spec-val">{row.value}</span>
               </div>
             ))}
-            <p className="u-note">
-              Figures describe a standard single-plant rollout on a supported ERP.
-            </p>
+            <p className="u-note">One plant, one subscription, setup included. Live in under three months.</p>
           </Blueprint>
         </div>
       </div>

@@ -1,32 +1,24 @@
-import useScrollReveal from './hooks/useScrollReveal';
-import SiteHeader from './sections/SiteHeader';
+import PageShell from './components/PageShell';
 import Hero from './sections/Hero';
-import ErpGap from './sections/ErpGap';
-import HowItWorks from './sections/HowItWorks';
-import Explain from './sections/Explain';
-import Verticals from './sections/Verticals';
-import Rollout from './sections/Rollout';
-import Pricing from './sections/Pricing';
+import Familiar from './sections/Familiar';
+import WhatItDoes from './sections/WhatItDoes';
+import Product from './sections/Product';
+import Connect from './sections/Connect';
+import HowItStarts from './sections/HowItStarts';
+import Cost from './sections/Cost';
 import Demo from './sections/Demo';
-import SiteFooter from './sections/SiteFooter';
 
 export default function App() {
-  useScrollReveal();
-
   return (
-    <div className="u-page">
-      <SiteHeader />
-      <main>
-        <Hero />
-        <ErpGap />
-        <HowItWorks />
-        <Explain />
-        <Verticals />
-        <Rollout />
-        <Pricing />
-        <Demo />
-      </main>
-      <SiteFooter />
-    </div>
+    <PageShell page="home">
+      <Hero />
+      <Familiar />
+      <WhatItDoes />
+      <Product />
+      <Connect />
+      <HowItStarts />
+      <Cost />
+      <Demo />
+    </PageShell>
   );
 }
