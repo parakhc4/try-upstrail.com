@@ -277,9 +277,12 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 /* ── product screens ─────────────────────────────────────────────────── */
 
 .u-screens { display: grid; gap: 30px; }
-.u-screen { margin: 0; }
+.u-screens > * { min-width: 0; }
+.u-screen { margin: 0; min-width: 0; max-width: 100%; }
 .u-screen-frame { padding: 8px; background: #ffffff; }
+.u-screen-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
 .u-screen-frame img { display: block; width: 100%; height: auto; }
+.u-screen-hint { display: none; }
 .u-screen-missing {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
   width: 100%; background: color-mix(in srgb, var(--color-text) 4%, transparent);
@@ -289,6 +292,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 .u-screen-cap { font-size: 14.5px; line-height: 1.5; color: var(--color-neutral-800); margin-top: 10px; max-width: 800px; }
 .u-screen-cap strong { color: var(--color-text); font-weight: 600; }
 .u-screens-note { font-size: 13px; color: var(--color-neutral-700); margin: 14px 0 0; }
+@media (max-width: 700px) {
+  .u-screen-frame img, .u-screen-missing { width: 900px; max-width: none; }
+  .u-screen-hint { display: inline; color: var(--color-neutral-700); }
+}
 
 /* ── footer ──────────────────────────────────────────────────────────── */
 
